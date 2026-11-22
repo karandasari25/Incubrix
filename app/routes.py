@@ -1,9 +1,11 @@
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from sqlalchemy import text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
 from app.database import get_db
+from app.errors import APIError
 from app.models import Job
 from app.schemas import PublishRequest, DestinationCreate, CatalogueImportRequest, AIRulesCaptureRequest
 from hashlib import sha256
@@ -48,6 +50,12 @@ def ready(db: Session = Depends(get_db)) -> dict:
     return {"status": "ready", "simulation_mode": settings.simulation_mode}
 
 
+def _clean_payload(payload_dict: dict) -> dict:
+    if not isinstance(payload_dict, dict):
+        return {}
+    return {k: v for k, v in payload_dict.items() if not k.startswith("_")}
+
+
 @router.post("/api/v1/publish", status_code=202)
 def publish(
     request: Request,
@@ -55,8 +63,17 @@ def publish(
     idempotency_key: str = Header(..., alias="Idempotency-Key"),
     db: Session = Depends(get_db),
 ) -> dict:
+    current_payload = payload.model_dump()
     existing = db.query(Job).filter(Job.idempotency_key == idempotency_key).first()
     if existing:
+        if _clean_payload(existing.payload) != _clean_payload(current_payload):
+            raise APIError(
+                code="IDEMPOTENCY_KEY_REUSED",
+                message="Idempotency key was previously used with a different request payload.",
+                status_code=409,
+                retryable=False,
+                details={"idempotency_key": idempotency_key},
+            )
         result_links = existing.result_links or []
         existing_manifest = existing.payload.get("_output_manifest")
         return {
@@ -72,13 +89,41 @@ def publish(
         idempotency_key=idempotency_key,
         status="queued",
         progress=0,
-        payload=payload.model_dump(),
+        payload=current_payload,
         result_links=[],
         marker=sha256(idempotency_key.encode("utf-8")).hexdigest()[:16],
     )
     db.add(job)
-    db.commit()
-    db.refresh(job)
+    try:
+        db.commit()
+        db.refresh(job)
+    except IntegrityError:
+        db.rollback()
+        existing = db.query(Job).filter(Job.idempotency_key == idempotency_key).first()
+        if existing:
+            if _clean_payload(existing.payload) != _clean_payload(current_payload):
+                raise APIError(
+                    code="IDEMPOTENCY_KEY_REUSED",
+                    message="Idempotency key was previously used with a different request payload.",
+                    status_code=409,
+                    retryable=False,
+                    details={"idempotency_key": idempotency_key},
+                )
+            return {
+                "job_id": existing.id,
+                "status": existing.status,
+                "replayed": True,
+                "result_links": existing.result_links or [],
+                "warnings": ["Idempotency replay returned the existing job"],
+                "output_manifest": existing.payload.get("_output_manifest"),
+            }
+        raise APIError(
+            code="INTERNAL_ERROR",
+            message="Database error during job creation",
+            status_code=500,
+            retryable=False,
+        )
+
     manifest = build_output_manifest(
         providers={"simulation": "1.0.0"},
         settings={"simulation_mode": get_settings().simulation_mode},

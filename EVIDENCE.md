@@ -1,11 +1,14 @@
 # Evidence
 
-## Phase 1
+## Phase 1 — Foundation clean-up
 
-- Foundation tests: `tests/test_phase1.py`
-- Secret scanning test: `tests/test_secrets.py`
-- Health/readiness: `app/routes.py`
-- Idempotency and correlation: `app/middleware.py`, `app/routes.py`
+- Foundation and error path tests: `tests/test_phase1.py` (health, readiness, idempotency validation, duplicate replay, 409 on reused key with different payload, request validation formatting, unhandled error formatting without tracebacks, correlation_id context injection)
+- Secret scanning & log redaction test: `tests/test_secrets.py` (repository token scanner, token redaction, captured JSON log redaction of tokens and webhook secrets)
+- Health/readiness endpoints: `app/routes.py`
+- Correlation and Idempotency enforcement: `app/middleware.py`, `app/routes.py` (catches `IntegrityError` for safe concurrency race resolution, enforces 409 `IDEMPOTENCY_KEY_REUSED`)
+- Standard error formatting: `app/main.py` (all errors mapped to `{"error": {"code", "message", "retryable", "details"}}`, RequestValidationError -> `REQUEST_INVALID`, unhandled Exception -> `INTERNAL_ERROR`)
+- Structured logging & contextvars: `app/logging.py` (IncuBrixJsonFormatter with `timestamp, level, message, job_id, correlation_id`, SecretRedactionFilter)
+- Config settings: `app/config.py`, `.env.example`
 - Database job record: `app/models.py`, `alembic/versions/20261122_001_create_jobs.py`
 
 ## Phase 2

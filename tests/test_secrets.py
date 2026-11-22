@@ -1,7 +1,10 @@
+import io
+import json
+import logging
 from pathlib import Path
 import re
 
-from app.logging import redact
+from app.logging import redact, IncuBrixJsonFormatter, SecretRedactionFilter
 
 
 TOKEN_PATTERNS = [
@@ -34,3 +37,25 @@ def test_log_redaction_removes_bearer_and_named_secrets():
     redacted = redact(message)
     assert "abc123456789" not in redacted
     assert "very-secret-value" not in redacted
+
+
+def test_captured_logs_contain_no_secrets():
+    stream = io.StringIO()
+    handler = logging.StreamHandler(stream)
+    handler.setFormatter(IncuBrixJsonFormatter())
+    handler.addFilter(SecretRedactionFilter())
+
+    logger = logging.getLogger("test_capture_secrets")
+    logger.handlers.clear()
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+
+    secret_key = "ghp_" + "1234567890abcdef"
+    secret_val = "my_super_" + "secret"
+    logger.info("Connecting with Authorization: Bearer %s and webhook_secret=%s", secret_key, secret_val)
+
+    log_output = stream.getvalue()
+    assert secret_key not in log_output
+    assert secret_val not in log_output
+    parsed = json.loads(log_output)
+    assert "[REDACTED]" in parsed["message"]

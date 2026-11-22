@@ -1,10 +1,15 @@
+import json
+import logging
+from unittest.mock import patch
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from app.database import Base, get_db
 from app.main import app
+from app.logging import current_correlation_id, current_job_id, IncuBrixJsonFormatter
 
 
 engine = create_engine(
@@ -54,8 +59,18 @@ def test_publish_requires_idempotency_key():
     assert response.json()["error"]["code"] == "IDEMPOTENCY_KEY_REQUIRED"
 
 
+def test_publish_short_idempotency_key_rejected():
+    response = client.post(
+        "/api/v1/publish",
+        headers={"Idempotency-Key": "short"},
+        json={"destinations": []},
+    )
+    assert response.status_code == 400
+    assert response.json()["error"]["code"] == "IDEMPOTENCY_KEY_INVALID"
+
+
 def test_publish_returns_202_and_reuses_same_job():
-    headers = {"Idempotency-Key": "phase1-test-key"}
+    headers = {"Idempotency-Key": "phase1-test-key-valid"}
     first = client.post(
         "/api/v1/publish",
         headers=headers,
@@ -64,12 +79,61 @@ def test_publish_returns_202_and_reuses_same_job():
     second = client.post(
         "/api/v1/publish",
         headers=headers,
-        json={"destinations": ["destination-2"]},
+        json={"destinations": ["destination-1"]},
     )
     assert first.status_code == 202
     assert second.status_code == 202
     assert first.json()["job_id"] == second.json()["job_id"]
     assert second.json()["replayed"] is True
+
+
+def test_publish_reused_idempotency_key_with_different_body_returns_409():
+    headers = {"Idempotency-Key": "phase1-diff-body-key"}
+    first = client.post(
+        "/api/v1/publish",
+        headers=headers,
+        json={"destinations": ["destination-A"]},
+    )
+    assert first.status_code == 202
+    second = client.post(
+        "/api/v1/publish",
+        headers=headers,
+        json={"destinations": ["destination-B"]},
+    )
+    assert second.status_code == 409
+    body = second.json()
+    assert body["error"]["code"] == "IDEMPOTENCY_KEY_REUSED"
+    assert body["error"]["retryable"] is False
+
+
+def test_validation_error_returns_request_invalid_structure():
+    response = client.post(
+        "/api/v1/publish",
+        headers={"Idempotency-Key": "phase1-invalid-payload"},
+        json={"destinations": 12345},
+    )
+    assert response.status_code == 400
+    body = response.json()
+    assert "error" in body
+    assert body["error"]["code"] == "REQUEST_INVALID"
+    assert body["error"]["retryable"] is False
+    assert "details" in body["error"]
+
+
+def test_unhandled_exception_returns_internal_error_without_traceback():
+    no_raise_client = TestClient(app, raise_server_exceptions=False)
+
+    @app.get("/api/v1/test-fault", include_in_schema=False)
+    def fault_endpoint():
+        raise RuntimeError("Secret internal database connection string leaked!")
+
+    response = no_raise_client.get("/api/v1/test-fault")
+    assert response.status_code == 500
+    body = response.json()
+    assert "error" in body
+    assert body["error"]["code"] == "INTERNAL_ERROR"
+    assert body["error"]["retryable"] is False
+    assert "Secret internal database connection string leaked!" not in json.dumps(body)
 
 
 def test_job_status_shape():
@@ -85,3 +149,28 @@ def test_job_status_shape():
     assert body["status"] in {"queued", "running", "succeeded", "failed"}
     assert 0 <= body["progress"] <= 100
     assert "result_links" in body
+
+
+def test_correlation_id_context_and_json_logging():
+    formatter = IncuBrixJsonFormatter()
+    secret_val = "secret-" + "token-" + "value"
+    record = logging.LogRecord(
+        name="test_logger",
+        level=logging.INFO,
+        pathname="test.py",
+        lineno=1,
+        msg=f"Processing job with Authorization: Bearer {secret_val}",
+        args=(),
+        exc_info=None,
+    )
+    t_corr = current_correlation_id.set("corr-12345")
+    t_job = current_job_id.set("job-67890")
+    try:
+        formatted = json.loads(formatter.format(record))
+        assert formatted["correlation_id"] == "corr-12345"
+        assert formatted["job_id"] == "job-67890"
+        assert secret_val not in formatted["message"]
+        assert "[REDACTED]" in formatted["message"]
+    finally:
+        current_correlation_id.reset(t_corr)
+        current_job_id.reset(t_job)
