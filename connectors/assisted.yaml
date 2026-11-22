@@ -1,0 +1,23 @@
+key: assisted
+version: "1.0.0"
+tier: assisted
+auth: none
+surfaces:
+  - key: assist
+    content_types: [text, link, media]
+    spec_limits: {title_max: 1000, body_max: 100000, media_max: 20}
+rate_limits:
+  requests_per_minute: 60
+  retry_on_429: false
+capabilities:
+  validate: true
+  publish: false
+  get_status: false
+  delete: false
+  fetch_metrics: false
+  refresh_auth: false
+  build_assist_pack: true
+error_map:
+  400: PLATFORM_CONTENT_REJECTED
+  500: PLATFORM_UNAVAILABLE
+instance_param: instance_url

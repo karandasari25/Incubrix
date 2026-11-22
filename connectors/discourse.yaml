@@ -1,0 +1,28 @@
+key: discourse
+version: "1.0.0"
+tier: protocol
+auth: bot_token
+surfaces:
+  - key: topic
+    content_types: [text, link]
+    spec_limits:
+      title_max: 255
+      body_max: 60000
+      media_max: 0
+rate_limits:
+  requests_per_minute: 60
+  retry_on_429: true
+capabilities:
+  validate: true
+  publish: true
+  get_status: true
+  delete: true
+  fetch_metrics: false
+  refresh_auth: false
+  build_assist_pack: false
+error_map:
+  400: PLATFORM_CONTENT_REJECTED
+  401: CONNECTION_AUTH_EXPIRED
+  429: PLATFORM_RATE_LIMIT
+  500: PLATFORM_UNAVAILABLE
+instance_param: instance_url

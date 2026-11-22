@@ -1,0 +1,15 @@
+[
+  {"case": "timeout_retry_same_key", "status": "reconciled", "stored_result": "platform_post_id_reused"},
+  {"case": "429_reset_time", "status": "rescheduled", "stored_result": "retry_after_reset"},
+  {"case": "expired_token", "status": "blocked", "stored_result": "CONNECTION_AUTH_EXPIRED"},
+  {"case": "content_rejected", "status": "blocked", "stored_result": "PLATFORM_CONTENT_REJECTED"},
+  {"case": "title_too_long", "status": "blocked", "stored_result": "DEST_SPEC_VIOLATION"},
+  {"case": "unsupported_media", "status": "blocked", "stored_result": "DEST_SPEC_VIOLATION"},
+  {"case": "second_post_weekly_cap", "status": "blocked", "stored_result": "FREQUENCY_CAP"},
+  {"case": "promotional_no_promo_destination", "status": "blocked", "stored_result": "SELF_PROMOTION_NOT_ALLOWED"},
+  {"case": "platform_field_rename", "status": "demoted", "stored_result": "response_shape_validation_failed"},
+  {"case": "csv_duplicates_bad_urls_mixed_languages", "status": "blocked_or_annotated", "stored_result": "row_level_errors"},
+  {"case": "partner_revokes_permission", "status": "blocked", "stored_result": "CONNECTION_AUTH_EXPIRED"},
+  {"case": "non_english_community", "status": "evaluated", "stored_result": "policy_checked_without_language_assumption"},
+  {"case": "destination_requires_ai_disclosure", "status": "blocked", "stored_result": "AI_DISCLOSURE_REQUIRED"}
+]

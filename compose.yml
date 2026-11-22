@@ -1,0 +1,112 @@
+services:
+  app:
+    build: .
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-incubrix}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@postgres:5432/${POSTGRES_DB:-incubrix}
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND_URL: redis://redis:6379/1
+      MINIO_ENDPOINT: minio:9000
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-incubrix}
+      POSTGRES_USER: ${POSTGRES_USER:-incubrix}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U incubrix"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: elestio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?Set MINIO_ROOT_USER in .env}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?Set MINIO_ROOT_PASSWORD in .env}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+
+  mock-platforms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["uvicorn", "app.mock_platforms:app", "--host", "0.0.0.0", "--port", "8080"]
+    ports:
+      - "8080:8080"
+
+  lemmy-postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: lemmy
+      POSTGRES_USER: lemmy
+      POSTGRES_PASSWORD: ${LEMMY_POSTGRES_PASSWORD:?Set LEMMY_POSTGRES_PASSWORD in .env}
+
+  lemmy:
+    image: dessalines/lemmy:0.19.11
+    depends_on:
+      - lemmy-postgres
+    environment:
+      LEMMY_DATABASE_URL: postgres://lemmy:${LEMMY_POSTGRES_PASSWORD:?Set LEMMY_POSTGRES_PASSWORD in .env}@lemmy-postgres:5432/lemmy
+    ports:
+      - "1236:1236"
+
+  lemmy-ui:
+    image: dessalines/lemmy-ui:0.19.11
+    depends_on:
+      - lemmy
+    environment:
+      LEMMY_UI_LEMMY_INTERNAL_HOST: lemmy:1236
+    ports:
+      - "1235:1235"
+
+  ghost-mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ${GHOST_DB_PASSWORD:?Set GHOST_DB_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${GHOST_DB_ROOT_PASSWORD:?Set GHOST_DB_ROOT_PASSWORD in .env}
+
+  ghost:
+    image: ghost:5-alpine
+    depends_on:
+      - ghost-mysql
+    environment:
+      database__client: mysql
+      database__connection__host: ghost-mysql
+      database__connection__database: ghost
+      database__connection__user: ghost
+      database__connection__password: ${GHOST_DB_PASSWORD:?Set GHOST_DB_PASSWORD in .env}
+      url: http://localhost:2368
+    ports:
+      - "2368:2368"
+
+volumes:
+  minio-data:

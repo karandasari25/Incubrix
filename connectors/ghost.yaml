@@ -1,0 +1,25 @@
+key: ghost
+version: "1.0.0"
+tier: native
+auth: api_key
+surfaces:
+  - key: post
+    content_types: [text, link, media]
+    spec_limits: {title_max: 300, body_max: 100000, media_max: 20}
+rate_limits:
+  requests_per_minute: 30
+  retry_on_429: true
+capabilities:
+  validate: true
+  publish: true
+  get_status: true
+  delete: true
+  fetch_metrics: false
+  refresh_auth: false
+  build_assist_pack: false
+error_map:
+  400: PLATFORM_CONTENT_REJECTED
+  401: CONNECTION_AUTH_EXPIRED
+  429: PLATFORM_RATE_LIMIT
+  500: PLATFORM_UNAVAILABLE
+instance_param: instance_url
