@@ -1,28 +1,29 @@
 key: discourse
-version: "1.0.0"
-tier: protocol
-auth: bot_token
+version: 1.0.0
+tier: native
+auth: api_key
 surfaces:
   - key: topic
-    content_types: [text, link]
-    spec_limits:
-      title_max: 255
-      body_max: 60000
-      media_max: 0
+    content_types: [text, image, video_link]
+    spec:
+      title_max_chars: 255
+      body_max_chars: 32000
+      links_allowed: true
 rate_limits:
-  requests_per_minute: 60
-  retry_on_429: true
-capabilities:
-  validate: true
-  publish: true
-  get_status: true
-  delete: true
-  fetch_metrics: false
-  refresh_auth: false
-  build_assist_pack: false
+  per_connection:
+    requests: 60
+    per_seconds: 60
+capabilities: [publish, status, delete, metrics]
 error_map:
-  400: PLATFORM_CONTENT_REJECTED
-  401: CONNECTION_AUTH_EXPIRED
-  429: PLATFORM_RATE_LIMIT
-  500: PLATFORM_UNAVAILABLE
-instance_param: instance_url
+  "400": PLATFORM_CONTENT_REJECTED
+  "401": CONNECTION_AUTH_EXPIRED
+  "403": CONNECTION_AUTH_EXPIRED
+  "422": PLATFORM_CONTENT_REJECTED
+  "429": PLATFORM_RATE_LIMIT
+  "500": PLATFORM_UNAVAILABLE
+  "502": PLATFORM_UNAVAILABLE
+  "503": PLATFORM_UNAVAILABLE
+  "504": PLATFORM_UNAVAILABLE
+  "timeout": PLATFORM_UNAVAILABLE
+  "quota": PLATFORM_QUOTA_EXHAUSTED
+instance_param: base_url

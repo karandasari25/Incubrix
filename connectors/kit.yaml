@@ -1,23 +1,29 @@
 key: kit
-version: "1.0.0"
+version: 1.0.0
 tier: native
 auth: api_key
 surfaces:
   - key: broadcast
-    content_types: [text, link, media]
-    spec_limits: {title_max: 150, body_max: 40000, media_max: 20}
-rate_limits: {requests_per_minute: 30, retry_on_429: true}
-capabilities:
-  validate: true
-  publish: true
-  get_status: true
-  delete: true
-  fetch_metrics: false
-  refresh_auth: false
-  build_assist_pack: false
+    content_types: [text, link, image]
+    spec:
+      title_max_chars: 150
+      body_max_chars: 40000
+      links_allowed: true
+rate_limits:
+  per_connection:
+    requests: 30
+    per_seconds: 60
+capabilities: [publish, status, delete]
 error_map:
-  400: PLATFORM_CONTENT_REJECTED
-  401: CONNECTION_AUTH_EXPIRED
-  429: PLATFORM_RATE_LIMIT
-  500: PLATFORM_UNAVAILABLE
-instance_param: instance_url
+  "400": PLATFORM_CONTENT_REJECTED
+  "401": CONNECTION_AUTH_EXPIRED
+  "403": CONNECTION_AUTH_EXPIRED
+  "422": PLATFORM_CONTENT_REJECTED
+  "429": PLATFORM_RATE_LIMIT
+  "500": PLATFORM_UNAVAILABLE
+  "502": PLATFORM_UNAVAILABLE
+  "503": PLATFORM_UNAVAILABLE
+  "504": PLATFORM_UNAVAILABLE
+  "timeout": PLATFORM_UNAVAILABLE
+  "quota": PLATFORM_QUOTA_EXHAUSTED
+instance_param: base_url

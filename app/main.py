@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 
 from app.database import Base, engine
 from app.errors import APIError, error_body
+from app.connectors.errors import ConnectorError
 from app.logging import IncuBrixJsonFormatter, SecretRedactionFilter
 from app.middleware import CorrelationAndIdempotencyMiddleware
 from app.routes import router
@@ -38,6 +39,21 @@ app.include_router(connector_router)
 @app.exception_handler(APIError)
 async def api_error_handler(request: Request, exc: APIError) -> JSONResponse:
     return JSONResponse(status_code=exc.status_code, content=error_body(exc))
+
+
+@app.exception_handler(ConnectorError)
+async def connector_error_handler(request: Request, exc: ConnectorError) -> JSONResponse:
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "error": {
+                "code": exc.code,
+                "message": exc.message,
+                "retryable": exc.retryable,
+                "details": exc.details,
+            }
+        },
+    )
 
 
 @app.exception_handler(RequestValidationError)
