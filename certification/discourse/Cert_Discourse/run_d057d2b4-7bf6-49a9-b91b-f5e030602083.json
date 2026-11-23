@@ -1,0 +1,33 @@
+{
+  "run_id": "d057d2b4-7bf6-49a9-b91b-f5e030602083",
+  "run_type": "mock",
+  "destination": "Cert Discourse",
+  "connector_key": "discourse",
+  "passed": false,
+  "level": "L0",
+  "delete_verified": false,
+  "live_url": null,
+  "platform_post_id": null,
+  "steps": [
+    {
+      "step": "validate",
+      "result": {
+        "ok": true,
+        "violations": []
+      }
+    },
+    {
+      "step": "publish_exception",
+      "error": "'ASGITransport' object has no attribute 'handle_request'"
+    }
+  ],
+  "warnings": [
+    "publish_exception: 'ASGITransport' object has no attribute 'handle_request'"
+  ],
+  "alert": {
+    "type": "destination_demoted",
+    "reason": "publish_exception: 'ASGITransport' object has no attribute 'handle_request'",
+    "violations": []
+  },
+  "tested_at": "2026-11-23T07:33:55.424261+00:00"
+}

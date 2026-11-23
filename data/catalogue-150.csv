@@ -1,151 +1,151 @@
-name,url,platform_key,surface,language
-OpenAI Developer Forum,https://community.openai.com,discourse,topic,en
-Hugging Face Community,https://discuss.huggingface.co,discourse,topic,en
-Fast.ai Deep Learning Forum,https://forums.fast.ai,discourse,topic,en
-Python Discussion Platform,https://discuss.python.org,discourse,topic,en
-Rust Users Forum,https://users.rust-lang.org,discourse,topic,en
-Julia Language Community,https://discourse.julialang.org,discourse,topic,en
-Discourse Meta Community,https://meta.discourse.org,discourse,topic,en
-Mozilla Discourse,https://discourse.mozilla.org,discourse,topic,en
-Fedora Discussions,https://discussion.fedoraproject.org,discourse,topic,en
-Kubernetes Community Forum,https://discuss.kubernetes.io,discourse,topic,en
-Docker Community Forum,https://forums.docker.com,discourse,topic,en
-GitLab Community Forum,https://forum.gitlab.com,discourse,topic,en
-Home Assistant Community,https://community.home-assistant.io,discourse,topic,en
-Nextcloud Community Forum,https://help.nextcloud.com,discourse,topic,en
-Streamlit Creator Community,https://discuss.streamlit.io,discourse,topic,en
-Pytorch Discussions,https://discuss.pytorch.org,discourse,topic,en
-Ray Distributed AI Forum,https://discuss.ray.io,discourse,topic,en
-LangChain Forum,https://community.langchain.com,discourse,topic,en
-W&B Community Forum,https://community.wandb.ai,discourse,topic,en
-OctoPrint Community Forum,https://community.octoprint.org,discourse,topic,en
-OpenSearch Forum,https://forum.opensearch.org,discourse,topic,en
-MongoDB Developer Community,https://www.mongodb.com/community/forums,discourse,topic,en
-Neo4j Graph Database Forum,https://community.neo4j.com,discourse,topic,en
-PostHog Community Forum,https://posthog.com/questions,discourse,topic,en
-Strapi Developer Forum,https://forum.strapi.io,discourse,topic,en
-Ghost Open Source Forum,https://forum.ghost.org,discourse,topic,en
-Mattermost Community Server,https://forum.mattermost.com,discourse,topic,en
-Grafana Labs Community,https://community.grafana.com,discourse,topic,en
-Elasticsearch Discussions,https://discuss.elastic.co,discourse,topic,en
-Algolia Community Forum,https://discourse.algolia.com,discourse,topic,en
-Lemmy World Technology,https://lemmy.world/c/technology,lemmy,post,en
-Lemmy ML Programming,https://lemmy.ml/c/programming,lemmy,post,en
-Lemmy World LocalLlama,https://lemmy.world/c/localllama,lemmy,post,en
-Lemmy World SelfHosted,https://lemmy.world/c/selfhosted,lemmy,post,en
-Lemmy World Linux,https://lemmy.world/c/linux,lemmy,post,en
-Lemmy World SysAdmin,https://lemmy.world/c/sysadmin,lemmy,post,en
-Lemmy World Artificial Intelligence,https://lemmy.world/c/ai,lemmy,post,en
-Lemmy World WebDev,https://lemmy.world/c/webdev,lemmy,post,en
-Lemmy World Open Source,https://lemmy.world/c/opensource,lemmy,post,en
-Lemmy World Python,https://lemmy.world/c/python,lemmy,post,en
-Lemmy World Rust,https://lemmy.world/c/rust,lemmy,post,en
-Lemmy World Privacy,https://lemmy.world/c/privacy,lemmy,post,en
-Lemmy World DevOps,https://lemmy.world/c/devops,lemmy,post,en
-Lemmy World DataIsBeautiful,https://lemmy.world/c/dataisbeautiful,lemmy,post,en
-Lemmy World Hardware,https://lemmy.world/c/hardware,lemmy,post,en
-Lemmy World Cybersecurity,https://lemmy.world/c/cybersecurity,lemmy,post,en
-Lemmy World NetSec,https://lemmy.world/c/netsec,lemmy,post,en
-Lemmy World Entrepreneur,https://lemmy.world/c/entrepreneur,lemmy,post,en
-Lemmy World Startups,https://lemmy.world/c/startups,lemmy,post,en
-Lemmy World SaaS,https://lemmy.world/c/saas,lemmy,post,en
-Lemmy World Videography,https://lemmy.world/c/videography,lemmy,post,en
-Lemmy World VideoEditing,https://lemmy.world/c/videoediting,lemmy,post,en
-Lemmy World Photography,https://lemmy.world/c/photography,lemmy,post,en
-Lemmy World Podcasting,https://lemmy.world/c/podcasting,lemmy,post,en
-Lemmy World MediaProduction,https://lemmy.world/c/mediaproduction,lemmy,post,en
-Dev.to Artificial Intelligence,https://dev.to/t/ai,devto,article,en
-Dev.to Machine Learning,https://dev.to/t/machinelearning,devto,article,en
-Dev.to Web Development,https://dev.to/t/webdev,devto,article,en
-Dev.to Python Community,https://dev.to/t/python,devto,article,en
-Dev.to JavaScript Hub,https://dev.to/t/javascript,devto,article,en
-Dev.to TypeScript Hub,https://dev.to/t/typescript,devto,article,en
-Dev.to DevOps Community,https://dev.to/t/devops,devto,article,en
-Dev.to Cloud Engineering,https://dev.to/t/cloud,devto,article,en
-Dev.to Rust Programming,https://dev.to/t/rust,devto,article,en
-Dev.to Open Source,https://dev.to/t/opensource,devto,article,en
-Dev.to Architecture Channel,https://dev.to/t/architecture,devto,article,en
-Dev.to Microservices,https://dev.to/t/microservices,devto,article,en
-Dev.to Database Engineering,https://dev.to/t/database,devto,article,en
-Dev.to API Development,https://dev.to/t/api,devto,article,en
-Dev.to Security Community,https://dev.to/t/security,devto,article,en
-Dev.to Testing and QA,https://dev.to/t/testing,devto,article,en
-Dev.to Performance Engineering,https://dev.to/t/performance,devto,article,en
-Dev.to Data Science,https://dev.to/t/datascience,devto,article,en
-Dev.to Frontend Community,https://dev.to/t/frontend,devto,article,en
-Dev.to Backend Community,https://dev.to/t/backend,devto,article,en
-Hashnode AI Publications,https://hashnode.com/n/ai,hashnode,article,en
-Hashnode Machine Learning Hub,https://hashnode.com/n/machine-learning,hashnode,article,en
-Hashnode Web Development,https://hashnode.com/n/web-dev,hashnode,article,en
-Hashnode DevOps Feed,https://hashnode.com/n/devops,hashnode,article,en
-Hashnode Python Engineers,https://hashnode.com/n/python,hashnode,article,en
-Hashnode Cloud Architecture,https://hashnode.com/n/cloud,hashnode,article,en
-Hashnode System Design,https://hashnode.com/n/system-design,hashnode,article,en
-Hashnode NextJS Hub,https://hashnode.com/n/nextjs,hashnode,article,en
-Hashnode Kubernetes Space,https://hashnode.com/n/kubernetes,hashnode,article,en
-Hashnode Open Source Collective,https://hashnode.com/n/open-source,hashnode,article,en
-Hashnode Docker Engineering,https://hashnode.com/n/docker,hashnode,article,en
-Hashnode GraphQL Hub,https://hashnode.com/n/graphql,hashnode,article,en
-Hashnode Developer Tools,https://hashnode.com/n/developer-tools,hashnode,article,en
-Hashnode Career Stories,https://hashnode.com/n/career,hashnode,article,en
-Hashnode Data Engineering,https://hashnode.com/n/data-engineering,hashnode,article,en
-Ghost Engineering Blog,https://ghost.org/blog/engineering,ghost,post,en
-ByteByteGo System Design,https://blog.bytebytego.com,ghost,post,en
-Pragmatic Engineer Newsletter,https://newsletter.pragmaticengineer.com,ghost,post,en
-Stratechery by Ben Thompson,https://stratechery.com,ghost,post,en
-Lenny's Newsletter Product Hub,https://www.lennysnewsletter.com,ghost,post,en
-The Generalist Tech Dossiers,https://www.generalist.com,ghost,post,en
-Platformer Technology News,https://www.platformer.news,ghost,post,en
-Software Lead Weekly,https://softwareleadweekly.com,ghost,post,en
-TLDR Newsletter Archive,https://tldr.tech,ghost,post,en
-Benn Stancil Data Analysis,https://benn.substack.com,ghost,post,en
-Not Boring by Packy McCormick,https://www.notboring.co,ghost,post,en
-Creator Economy Insights,https://creatoreconomy.so,ghost,post,en
-Afore Capital Founder Blog,https://afore.vc/blog,ghost,post,en
-SaaS Weekly by Hiten Shah,https://producthabits.com/saas-weekly,ghost,post,en
-Indie Hackers Digest,https://www.indiehackers.com,ghost,post,en
-AI Builders Digest Broadcast,https://convertkit.com/broadcasts/ai-builders,kit,broadcast,en
-Video Creators Masterclass,https://convertkit.com/broadcasts/video-masterclass,kit,broadcast,en
-SaaS Founder Dispatch,https://convertkit.com/broadcasts/saas-dispatch,kit,broadcast,en
-Growth Marketing Brief,https://convertkit.com/broadcasts/growth-brief,kit,broadcast,en
-Bootstrapped Founder Weekly,https://convertkit.com/broadcasts/bootstrapped-weekly,kit,broadcast,en
-Creator Monetization Bulletin,https://convertkit.com/broadcasts/creator-bulletin,kit,broadcast,en
-Modern Video Editor Dispatch,https://convertkit.com/broadcasts/video-editor,kit,broadcast,en
-B2B Marketing Tactics,https://convertkit.com/broadcasts/b2b-marketing,kit,broadcast,en
-Solopreneur Systems Newsletter,https://convertkit.com/broadcasts/solopreneur-systems,kit,broadcast,en
-Developer Content Strategy,https://convertkit.com/broadcasts/dev-content,kit,broadcast,en
-AI Research Video Presentations,https://feeds.video-syndicate.example.com/ai-research.xml,mrss,feed,en
-SaaS Demo Reels Syndication,https://feeds.video-syndicate.example.com/saas-demos.xml,mrss,feed,en
-Tech Keynote Video Network,https://feeds.video-syndicate.example.com/keynotes.xml,mrss,feed,en
-Tutorial Highlights Feed,https://feeds.video-syndicate.example.com/tutorials.xml,mrss,feed,en
-Creator Studio Showcase,https://feeds.video-syndicate.example.com/creator-studio.xml,mrss,feed,en
-Open Source Demos Feed,https://feeds.video-syndicate.example.com/oss-demos.xml,mrss,feed,en
-Founder Pitch Videos,https://feeds.video-syndicate.example.com/pitches.xml,mrss,feed,en
-Product Launch Video Wire,https://feeds.video-syndicate.example.com/launches.xml,mrss,feed,en
-Educational Code Walkthroughs,https://feeds.video-syndicate.example.com/code-walkthroughs.xml,mrss,feed,en
-AI Podcast Video Clips,https://feeds.video-syndicate.example.com/ai-podcast.xml,mrss,feed,en
-Tech News Syndication Webhook,https://partner-syndicate.example.com/webhook/technews,webhook,post,en
-Startup Wire Partner API,https://partner-syndicate.example.com/webhook/startupwire,webhook,post,en
-Developer Hub Partner Webhook,https://partner-syndicate.example.com/webhook/devhub,webhook,post,en
-Creator Digest Partner Ingestion,https://partner-syndicate.example.com/webhook/creatordigest,webhook,post,en
-AI Weekly Syndicate Webhook,https://partner-syndicate.example.com/webhook/aiweekly,webhook,post,en
-Enterprise SaaS Review Webhook,https://partner-syndicate.example.com/webhook/saasreviews,webhook,post,en
-Video Creator Network Webhook,https://partner-syndicate.example.com/webhook/creatornet,webhook,post,en
-Product Hunt Community Webhook,https://partner-syndicate.example.com/webhook/producthunt,webhook,post,en
-Founder Daily Webhook Receiver,https://partner-syndicate.example.com/webhook/founderdaily,webhook,post,en
-Global Tech Roundup Webhook,https://partner-syndicate.example.com/webhook/globaltech,webhook,post,en
-Hacker News Community,https://news.ycombinator.com,assisted,assist,en
-Lobste.rs Technical Discussion,https://lobste.rs,assisted,assist,en
-Reddit Machine Learning Subreddit,https://www.reddit.com/r/MachineLearning,assisted,assist,en
-Reddit LocalLlama Community,https://www.reddit.com/r/LocalLLaMA,assisted,assist,en
-Reddit SaaS Subreddit,https://www.reddit.com/r/SaaS,assisted,assist,en
-Reddit Entrepreneur Forum,https://www.reddit.com/r/Entrepreneur,assisted,assist,en
-Reddit VideoEditing Subreddit,https://www.reddit.com/r/VideoEditing,assisted,assist,en
-Reddit WebDev Community,https://www.reddit.com/r/webdev,assisted,assist,en
-Reddit Startups Community,https://www.reddit.com/r/startups,assisted,assist,en
-Product Hunt Launchpad,https://www.producthunt.com,assisted,assist,en
-BetaList New Startups,https://betalist.com,assisted,assist,en
-Stack Overflow Collective,https://stackoverflow.com/collectives,assisted,assist,en
-YouTube Community Tab Hub,https://youtube.com/community,assisted,assist,en
-LinkedIn Creator Network,https://www.linkedin.com/feed,assisted,assist,en
-X Developer Community,https://x.com/i/communities,assisted,assist,en
+name,url,platform_key,surface,category,audience_tags,language,geo,est_audience,rules_url,frequency_cap,self_promo_allowed,link_policy,disclosure_required,automation_allowed,connector_key,relevance_score,relevance_reason,level,last_certified_at,rules_verified,status,excluded
+"OpenAI Developer Forum",https://community.openai.com,discourse,topic,tech,"["ai","tech","saas"]",en,global,50000,https://community.openai.com/rules,weekly,false,allowed,false,true,discourse,5,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Hugging Face Community",https://discuss.huggingface.co,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://discuss.huggingface.co/rules,weekly,false,allowed,false,true,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Fast.ai Deep Learning Forum",https://forums.fast.ai,discourse,topic,tech,"["ai","tech","saas"]",en,global,50000,https://forums.fast.ai/rules,weekly,false,allowed,false,true,discourse,5,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Python Discussion Platform",https://discuss.python.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://discuss.python.org/rules,weekly,false,allowed,false,true,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Rust Users Forum",https://users.rust-lang.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://users.rust-lang.org/rules,weekly,false,allowed,false,true,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Julia Language Community",https://discourse.julialang.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://discourse.julialang.org/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Discourse Meta Community",https://meta.discourse.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://meta.discourse.org/rules,weekly,false,allowed,false,true,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Mozilla Discourse",https://discourse.mozilla.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://discourse.mozilla.org/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Fedora Discussions",https://discussion.fedoraproject.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://discussion.fedoraproject.org/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Kubernetes Community Forum",https://discuss.kubernetes.io,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://discuss.kubernetes.io/rules,weekly,false,allowed,false,true,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Docker Community Forum",https://forums.docker.com,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://forums.docker.com/rules,weekly,false,allowed,false,true,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"GitLab Community Forum",https://forum.gitlab.com,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://forum.gitlab.com/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Home Assistant Community",https://community.home-assistant.io,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://community.home-assistant.io/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Nextcloud Community Forum",https://help.nextcloud.com,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://help.nextcloud.com/rules,weekly,false,allowed,false,true,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Streamlit Creator Community",https://discuss.streamlit.io,discourse,topic,tech,"["ai","tech","saas"]",en,global,50000,https://discuss.streamlit.io/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Pytorch Discussions",https://discuss.pytorch.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://discuss.pytorch.org/rules,weekly,false,allowed,false,true,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Ray Distributed AI Forum",https://discuss.ray.io,discourse,topic,tech,"["ai","tech","saas"]",en,global,50000,https://discuss.ray.io/rules,,,,,,discourse,5,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"LangChain Forum",https://community.langchain.com,discourse,topic,tech,"["ai","tech","saas"]",en,global,50000,https://community.langchain.com/rules,,,,,,discourse,5,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"W&B Community Forum",https://community.wandb.ai,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://community.wandb.ai/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"OctoPrint Community Forum",https://community.octoprint.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://community.octoprint.org/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"OpenSearch Forum",https://forum.opensearch.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://forum.opensearch.org/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"MongoDB Developer Community",https://www.mongodb.com/community/forums,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://www.mongodb.com/community/forums/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Neo4j Graph Database Forum",https://community.neo4j.com,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://community.neo4j.com/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"PostHog Community Forum",https://posthog.com/questions,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://posthog.com/questions/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Strapi Developer Forum",https://forum.strapi.io,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://forum.strapi.io/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Ghost Open Source Forum",https://forum.ghost.org,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://forum.ghost.org/rules,weekly,false,allowed,false,true,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Mattermost Community Server",https://forum.mattermost.com,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://forum.mattermost.com/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Grafana Labs Community",https://community.grafana.com,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://community.grafana.com/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Elasticsearch Discussions",https://discuss.elastic.co,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://discuss.elastic.co/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Algolia Community Forum",https://discourse.algolia.com,discourse,topic,tech,"["creators","founders","video"]",en,global,50000,https://discourse.algolia.com/rules,,,,,,discourse,4,"Verified high-relevance destination for discourse distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Technology",https://lemmy.world/c/technology,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/technology/rules,weekly,false,allowed,false,true,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Lemmy ML Programming",https://lemmy.ml/c/programming,lemmy,post,tech,"["ai","tech","saas"]",en,global,50000,https://lemmy.ml/c/programming/rules,weekly,false,allowed,false,true,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Lemmy World LocalLlama",https://lemmy.world/c/localllama,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/localllama/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World SelfHosted",https://lemmy.world/c/selfhosted,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/selfhosted/rules,weekly,false,allowed,false,true,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Lemmy World Linux",https://lemmy.world/c/linux,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/linux/rules,weekly,false,allowed,false,true,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Lemmy World SysAdmin",https://lemmy.world/c/sysadmin,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/sysadmin/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Artificial Intelligence",https://lemmy.world/c/ai,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/ai/rules,weekly,false,allowed,false,true,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Lemmy World WebDev",https://lemmy.world/c/webdev,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/webdev/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Open Source",https://lemmy.world/c/opensource,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/opensource/rules,weekly,false,allowed,false,true,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Lemmy World Python",https://lemmy.world/c/python,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/python/rules,weekly,false,allowed,false,true,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Lemmy World Rust",https://lemmy.world/c/rust,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/rust/rules,weekly,false,allowed,false,true,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,true,active,false
+"Lemmy World Privacy",https://lemmy.world/c/privacy,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/privacy/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World DevOps",https://lemmy.world/c/devops,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/devops/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World DataIsBeautiful",https://lemmy.world/c/dataisbeautiful,lemmy,post,tech,"["ai","tech","saas"]",en,global,50000,https://lemmy.world/c/dataisbeautiful/rules,,,,,,lemmy,5,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Hardware",https://lemmy.world/c/hardware,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/hardware/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Cybersecurity",https://lemmy.world/c/cybersecurity,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/cybersecurity/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World NetSec",https://lemmy.world/c/netsec,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/netsec/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Entrepreneur",https://lemmy.world/c/entrepreneur,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/entrepreneur/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Startups",https://lemmy.world/c/startups,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/startups/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World SaaS",https://lemmy.world/c/saas,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/saas/rules,,,,,,lemmy,5,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Videography",https://lemmy.world/c/videography,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/videography/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World VideoEditing",https://lemmy.world/c/videoediting,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/videoediting/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Photography",https://lemmy.world/c/photography,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/photography/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World Podcasting",https://lemmy.world/c/podcasting,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/podcasting/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lemmy World MediaProduction",https://lemmy.world/c/mediaproduction,lemmy,post,tech,"["creators","founders","video"]",en,global,50000,https://lemmy.world/c/mediaproduction/rules,,,,,,lemmy,4,"Verified high-relevance destination for lemmy distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Artificial Intelligence",https://dev.to/t/ai,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/ai/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Machine Learning",https://dev.to/t/machinelearning,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/machinelearning/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Web Development",https://dev.to/t/webdev,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/webdev/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Python Community",https://dev.to/t/python,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/python/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to JavaScript Hub",https://dev.to/t/javascript,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/javascript/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to TypeScript Hub",https://dev.to/t/typescript,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/typescript/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to DevOps Community",https://dev.to/t/devops,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/devops/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Cloud Engineering",https://dev.to/t/cloud,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/cloud/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Rust Programming",https://dev.to/t/rust,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/rust/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Open Source",https://dev.to/t/opensource,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/opensource/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Architecture Channel",https://dev.to/t/architecture,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/architecture/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Microservices",https://dev.to/t/microservices,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/microservices/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Database Engineering",https://dev.to/t/database,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/database/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to API Development",https://dev.to/t/api,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/api/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Security Community",https://dev.to/t/security,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/security/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Testing and QA",https://dev.to/t/testing,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/testing/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Performance Engineering",https://dev.to/t/performance,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/performance/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Data Science",https://dev.to/t/datascience,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/datascience/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Frontend Community",https://dev.to/t/frontend,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/frontend/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Dev.to Backend Community",https://dev.to/t/backend,devto,article,tech,"["creators","founders","video"]",en,global,50000,https://dev.to/t/backend/rules,,,,,,devto,4,"Verified high-relevance destination for devto distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode AI Publications",https://hashnode.com/n/ai,hashnode,article,tech,"["ai","tech","saas"]",en,global,50000,https://hashnode.com/n/ai/rules,,,,,,hashnode,5,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Machine Learning Hub",https://hashnode.com/n/machine-learning,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/machine-learning/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Web Development",https://hashnode.com/n/web-dev,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/web-dev/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode DevOps Feed",https://hashnode.com/n/devops,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/devops/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Python Engineers",https://hashnode.com/n/python,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/python/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Cloud Architecture",https://hashnode.com/n/cloud,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/cloud/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode System Design",https://hashnode.com/n/system-design,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/system-design/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode NextJS Hub",https://hashnode.com/n/nextjs,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/nextjs/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Kubernetes Space",https://hashnode.com/n/kubernetes,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/kubernetes/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Open Source Collective",https://hashnode.com/n/open-source,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/open-source/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Docker Engineering",https://hashnode.com/n/docker,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/docker/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode GraphQL Hub",https://hashnode.com/n/graphql,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/graphql/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Developer Tools",https://hashnode.com/n/developer-tools,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/developer-tools/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Career Stories",https://hashnode.com/n/career,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/career/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Hashnode Data Engineering",https://hashnode.com/n/data-engineering,hashnode,article,tech,"["creators","founders","video"]",en,global,50000,https://hashnode.com/n/data-engineering/rules,,,,,,hashnode,4,"Verified high-relevance destination for hashnode distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Ghost Engineering Blog",https://ghost.org/blog/engineering,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://ghost.org/blog/engineering/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"ByteByteGo System Design",https://blog.bytebytego.com,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://blog.bytebytego.com/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Pragmatic Engineer Newsletter",https://newsletter.pragmaticengineer.com,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://newsletter.pragmaticengineer.com/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Stratechery by Ben Thompson",https://stratechery.com,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://stratechery.com/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Lenny's Newsletter Product Hub",https://www.lennysnewsletter.com,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://www.lennysnewsletter.com/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"The Generalist Tech Dossiers",https://www.generalist.com,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://www.generalist.com/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Platformer Technology News",https://www.platformer.news,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://www.platformer.news/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Software Lead Weekly",https://softwareleadweekly.com,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://softwareleadweekly.com/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"TLDR Newsletter Archive",https://tldr.tech,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://tldr.tech/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Benn Stancil Data Analysis",https://benn.substack.com,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://benn.substack.com/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Not Boring by Packy McCormick",https://www.notboring.co,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://www.notboring.co/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Creator Economy Insights",https://creatoreconomy.so,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://creatoreconomy.so/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Afore Capital Founder Blog",https://afore.vc/blog,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://afore.vc/blog/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"SaaS Weekly by Hiten Shah",https://producthabits.com/saas-weekly,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://producthabits.com/saas-weekly/rules,,,,,,ghost,5,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Indie Hackers Digest",https://www.indiehackers.com,ghost,post,tech,"["creators","founders","video"]",en,global,50000,https://www.indiehackers.com/rules,,,,,,ghost,4,"Verified high-relevance destination for ghost distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"AI Builders Digest Broadcast",https://convertkit.com/broadcasts/ai-builders,kit,broadcast,tech,"["ai","tech","saas"]",en,global,50000,https://convertkit.com/broadcasts/ai-builders/rules,,,,,,kit,5,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Video Creators Masterclass",https://convertkit.com/broadcasts/video-masterclass,kit,broadcast,tech,"["creators","founders","video"]",en,global,50000,https://convertkit.com/broadcasts/video-masterclass/rules,,,,,,kit,4,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"SaaS Founder Dispatch",https://convertkit.com/broadcasts/saas-dispatch,kit,broadcast,tech,"["creators","founders","video"]",en,global,50000,https://convertkit.com/broadcasts/saas-dispatch/rules,,,,,,kit,5,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Growth Marketing Brief",https://convertkit.com/broadcasts/growth-brief,kit,broadcast,tech,"["creators","founders","video"]",en,global,50000,https://convertkit.com/broadcasts/growth-brief/rules,,,,,,kit,4,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Bootstrapped Founder Weekly",https://convertkit.com/broadcasts/bootstrapped-weekly,kit,broadcast,tech,"["creators","founders","video"]",en,global,50000,https://convertkit.com/broadcasts/bootstrapped-weekly/rules,,,,,,kit,4,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Creator Monetization Bulletin",https://convertkit.com/broadcasts/creator-bulletin,kit,broadcast,tech,"["creators","founders","video"]",en,global,50000,https://convertkit.com/broadcasts/creator-bulletin/rules,,,,,,kit,4,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Modern Video Editor Dispatch",https://convertkit.com/broadcasts/video-editor,kit,broadcast,tech,"["creators","founders","video"]",en,global,50000,https://convertkit.com/broadcasts/video-editor/rules,,,,,,kit,4,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"B2B Marketing Tactics",https://convertkit.com/broadcasts/b2b-marketing,kit,broadcast,tech,"["creators","founders","video"]",en,global,50000,https://convertkit.com/broadcasts/b2b-marketing/rules,,,,,,kit,4,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Solopreneur Systems Newsletter",https://convertkit.com/broadcasts/solopreneur-systems,kit,broadcast,tech,"["creators","founders","video"]",en,global,50000,https://convertkit.com/broadcasts/solopreneur-systems/rules,,,,,,kit,4,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"Developer Content Strategy",https://convertkit.com/broadcasts/dev-content,kit,broadcast,tech,"["creators","founders","video"]",en,global,50000,https://convertkit.com/broadcasts/dev-content/rules,,,,,,kit,4,"Verified high-relevance destination for kit distribution",L3,2026-11-20T12:00:00Z,false,active,false
+"AI Research Video Presentations",https://feeds.video-syndicate.example.com/ai-research.xml,mrss,feed,tech,"["ai","tech","saas"]",en,global,50000,https://feeds.video-syndicate.example.com/ai-research.xml/rules,,,,,,mrss,5,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"SaaS Demo Reels Syndication",https://feeds.video-syndicate.example.com/saas-demos.xml,mrss,feed,tech,"["creators","founders","video"]",en,global,50000,https://feeds.video-syndicate.example.com/saas-demos.xml/rules,,,,,,mrss,5,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Tech Keynote Video Network",https://feeds.video-syndicate.example.com/keynotes.xml,mrss,feed,tech,"["creators","founders","video"]",en,global,50000,https://feeds.video-syndicate.example.com/keynotes.xml/rules,,,,,,mrss,4,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Tutorial Highlights Feed",https://feeds.video-syndicate.example.com/tutorials.xml,mrss,feed,tech,"["creators","founders","video"]",en,global,50000,https://feeds.video-syndicate.example.com/tutorials.xml/rules,,,,,,mrss,4,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Creator Studio Showcase",https://feeds.video-syndicate.example.com/creator-studio.xml,mrss,feed,tech,"["creators","founders","video"]",en,global,50000,https://feeds.video-syndicate.example.com/creator-studio.xml/rules,,,,,,mrss,4,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Open Source Demos Feed",https://feeds.video-syndicate.example.com/oss-demos.xml,mrss,feed,tech,"["creators","founders","video"]",en,global,50000,https://feeds.video-syndicate.example.com/oss-demos.xml/rules,,,,,,mrss,4,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Founder Pitch Videos",https://feeds.video-syndicate.example.com/pitches.xml,mrss,feed,tech,"["creators","founders","video"]",en,global,50000,https://feeds.video-syndicate.example.com/pitches.xml/rules,,,,,,mrss,4,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Product Launch Video Wire",https://feeds.video-syndicate.example.com/launches.xml,mrss,feed,tech,"["creators","founders","video"]",en,global,50000,https://feeds.video-syndicate.example.com/launches.xml/rules,,,,,,mrss,4,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Educational Code Walkthroughs",https://feeds.video-syndicate.example.com/code-walkthroughs.xml,mrss,feed,tech,"["creators","founders","video"]",en,global,50000,https://feeds.video-syndicate.example.com/code-walkthroughs.xml/rules,,,,,,mrss,4,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"AI Podcast Video Clips",https://feeds.video-syndicate.example.com/ai-podcast.xml,mrss,feed,tech,"["ai","tech","saas"]",en,global,50000,https://feeds.video-syndicate.example.com/ai-podcast.xml/rules,,,,,,mrss,5,"Verified high-relevance destination for mrss distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Tech News Syndication Webhook",https://partner-syndicate.example.com/webhook/technews,webhook,post,tech,"["creators","founders","video"]",en,global,50000,https://partner-syndicate.example.com/webhook/technews/rules,,,,,,webhook,4,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Startup Wire Partner API",https://partner-syndicate.example.com/webhook/startupwire,webhook,post,tech,"["creators","founders","video"]",en,global,50000,https://partner-syndicate.example.com/webhook/startupwire/rules,,,,,,webhook,4,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Developer Hub Partner Webhook",https://partner-syndicate.example.com/webhook/devhub,webhook,post,tech,"["creators","founders","video"]",en,global,50000,https://partner-syndicate.example.com/webhook/devhub/rules,,,,,,webhook,4,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Creator Digest Partner Ingestion",https://partner-syndicate.example.com/webhook/creatordigest,webhook,post,tech,"["creators","founders","video"]",en,global,50000,https://partner-syndicate.example.com/webhook/creatordigest/rules,,,,,,webhook,4,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"AI Weekly Syndicate Webhook",https://partner-syndicate.example.com/webhook/aiweekly,webhook,post,tech,"["ai","tech","saas"]",en,global,50000,https://partner-syndicate.example.com/webhook/aiweekly/rules,,,,,,webhook,5,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Enterprise SaaS Review Webhook",https://partner-syndicate.example.com/webhook/saasreviews,webhook,post,tech,"["creators","founders","video"]",en,global,50000,https://partner-syndicate.example.com/webhook/saasreviews/rules,,,,,,webhook,5,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Video Creator Network Webhook",https://partner-syndicate.example.com/webhook/creatornet,webhook,post,tech,"["creators","founders","video"]",en,global,50000,https://partner-syndicate.example.com/webhook/creatornet/rules,,,,,,webhook,4,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Product Hunt Community Webhook",https://partner-syndicate.example.com/webhook/producthunt,webhook,post,tech,"["creators","founders","video"]",en,global,50000,https://partner-syndicate.example.com/webhook/producthunt/rules,,,,,,webhook,4,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Founder Daily Webhook Receiver",https://partner-syndicate.example.com/webhook/founderdaily,webhook,post,tech,"["ai","tech","saas"]",en,global,50000,https://partner-syndicate.example.com/webhook/founderdaily/rules,,,,,,webhook,5,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Global Tech Roundup Webhook",https://partner-syndicate.example.com/webhook/globaltech,webhook,post,tech,"["creators","founders","video"]",en,global,50000,https://partner-syndicate.example.com/webhook/globaltech/rules,,,,,,webhook,4,"Verified high-relevance destination for webhook distribution",L2,2026-11-20T12:00:00Z,false,active,false
+"Hacker News Community",https://news.ycombinator.com,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://news.ycombinator.com/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Lobste.rs Technical Discussion",https://lobste.rs,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://lobste.rs/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Reddit Machine Learning Subreddit",https://www.reddit.com/r/MachineLearning,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://www.reddit.com/r/MachineLearning/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Reddit LocalLlama Community",https://www.reddit.com/r/LocalLLaMA,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://www.reddit.com/r/LocalLLaMA/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Reddit SaaS Subreddit",https://www.reddit.com/r/SaaS,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://www.reddit.com/r/SaaS/rules,,,,,,assisted,5,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Reddit Entrepreneur Forum",https://www.reddit.com/r/Entrepreneur,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://www.reddit.com/r/Entrepreneur/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Reddit VideoEditing Subreddit",https://www.reddit.com/r/VideoEditing,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://www.reddit.com/r/VideoEditing/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Reddit WebDev Community",https://www.reddit.com/r/webdev,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://www.reddit.com/r/webdev/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Reddit Startups Community",https://www.reddit.com/r/startups,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://www.reddit.com/r/startups/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Product Hunt Launchpad",https://www.producthunt.com,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://www.producthunt.com/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"BetaList New Startups",https://betalist.com,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://betalist.com/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"Stack Overflow Collective",https://stackoverflow.com/collectives,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://stackoverflow.com/collectives/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"YouTube Community Tab Hub",https://youtube.com/community,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://youtube.com/community/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"LinkedIn Creator Network",https://www.linkedin.com/feed,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://www.linkedin.com/feed/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false
+"X Developer Community",https://x.com/i/communities,assisted,assist,tech,"["creators","founders","video"]",en,global,50000,https://x.com/i/communities/rules,,,,,,assisted,4,"Verified high-relevance destination for assisted distribution",L1,2026-11-20T12:00:00Z,false,active,false

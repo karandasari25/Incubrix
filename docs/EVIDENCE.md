@@ -20,12 +20,14 @@
 - Contract test suite: `tests/contract/test_contract.py` (10 tests: manifest schema × 9, instantiation × 9, endpoint contract, unsupported method -> 400, kill switch -> 503, unknown -> 404)
 - Phase 2 endpoint tests: `tests/test_phase2.py` (validate, publish, get_status, delete contracts for Discourse)
 
-## Phase 3 — Core Connectors
+## Phase 3 — Core Connectors & Real HTTPX Adapters
 
-- Core connector tests: `tests/test_phase3.py` (all 6 connectors: validate/publish/get_status/delete, assisted build_assist_pack)
-- All 6 connector implementations: `app/connectors/discourse.py`, `lemmy.py`, `ghost.py`, `devto.py`, `webhook.py`, `assisted.py`
-- Simulation base: `app/connectors/simulation.py`
+- Core connector tests: `tests/test_phase3.py`, `tests/test_real_adapters_and_faults.py` (all 6 connectors: validate/publish/get_status/delete, assisted build_assist_pack)
+- All 6 connector implementations with real `httpx` adapters: `app/connectors/discourse.py`, `lemmy.py`, `ghost.py`, `devto.py`, `webhook.py`, `assisted.py`
+- HTTP error mapping helper: `app/connectors/http_client.py`
+- Simulation base & fallback: `app/connectors/simulation.py` (active when `CONNECTOR_MODE=simulation`)
 - Connector manifests: `connectors/*.yaml` (all 9 connectors with full Appendix A schema)
+- Mock platform fault injection: `app/mock_platforms.py` (429 with reset time, 401, 422, 500, 503, timeout-after-create, quota, and renamed field)
 
 ## Phase 4 — Rules Engine & Real Publish Pipeline
 
@@ -41,16 +43,19 @@
 - 42-case rules fixture: `tests/fixtures/rules_cases.json` (covers all rule codes; zero misses asserted)
 - Rules engine: `app/rules.py` (pure fail-closed, `action: allowed|blocked|rescheduled`, `scheduled_for` on rescheduled, `FREQUENCY_CAP`, `SELF_PROMOTION_NOT_ALLOWED`, `LINK_POLICY_VIOLATION`, `AI_DISCLOSURE_REQUIRED`, `AMBIGUOUS_RULE:*`)
 - Retry and 429 policy: `app/reliability.py` (RetryPolicy: exponential backoff, bounded max, 429 Retry-After, stop after 5 × PLATFORM_UNAVAILABLE)
+- 429 delay & 5x503 stop: `app/pipeline.py` executes rate-limit sleep and halts after 5 consecutive 503s with injectable `sleep_fn`
+- Celery worker & scheduler tick: `app/worker.py` (publish pipeline task transitioning queued -> running -> succeeded|failed, plus periodic tick running due publications)
 - Idempotency reconciliation: `app/reliability.py` (reconcile_idempotent_publish: stored ID -> live marker search -> safe publish)
 - 13-case hard cases fixture: `tests/fixtures/phase4_hard_cases.json`
 - Alembic migration: `alembic/versions/20261122_004_publications_proposals.py` (creates `publications`, `rule_proposals`, and adds `destinations` status/excluded/rules_verified)
 
-## Phase 5 — Certification Harness
+## Phase 5 — Certification Harness & Recertification Scheduler
 
-- Certification harness tests: `tests/test_phase5.py`
-- Response-shape validators and harness: `app/certification.py` (validate -> publish -> get_status -> delete -> verify; _failed records demotion alert; run_type: mock|local|live)
+- Certification harness tests: `tests/test_phase5.py`, `tests/test_real_adapters_and_faults.py`
+- Response-shape validators and harness: `app/certification.py` (validate -> publish -> confirm live -> delete -> verify deleted; shape violation or failure triggers demotion alert; run_type: mock|local|live)
+- Recertification scheduler: `app/recertification.py` (`run_recertification_scheduler` auto-demotes failing destinations to L0/demoted/excluded and opens `AlertTicket`)
 - Destination, evidence, and alert records: `app/models.py`
-- Destination/certification application routes: `app/routes.py`
+- Destination/certification application routes: `app/routes.py` (`GET /api/v1/certification/due`)
 - Database migration: `alembic/versions/20261122_003_destinations_certification.py`
 
 ## Phase 6 — Integration Standard
@@ -82,15 +87,19 @@
 
 ## Phase 9 — Researched 150-Destination Catalogue
 
-- Real catalogue datasets: `data/catalogue-150.csv` and `data/catalogue.csv` (150 real tech, AI, SaaS, creator, and video communities across Discourse, Lemmy, Ghost, Dev.to, Hashnode, Kit, MRSS, Webhook, and Assisted)
+- Real catalogue datasets: `data/catalogue-150.csv` and `data/catalogue.csv` with full 23 Appendix A columns (`name,url,platform_key,surface,category,audience_tags,language,geo,est_audience,rules_url,frequency_cap,self_promo_allowed,link_policy,disclosure_required,automation_allowed,connector_key,relevance_score,relevance_reason,level,last_certified_at,rules_verified,status,excluded`).
+- Rules verification honesty: only destinations with genuinely read rules have `rules_verified=true`. Unread destinations have empty rule fields and `rules_verified=false` to fail closed.
 - Catalogue generator: `scripts/generate_real_catalogue.py`
 - Ingestion report: `docs/catalogue_import_report.json` (150 imported, 0 duplicates, 0 bad rows)
 
-## Phase 10 & 11 — Hard Cases, Tooling, Metrics & Frontend
+## Phase 10 & 11 — Hard Cases, Tooling, Metrics, Compose & Frontend
 
+- Docker Compose Stack: `compose.yml` configuring `app`, `worker` (Celery), `scheduler` (Celery beat), `postgres`, `redis`, `minio` (pinned image), `mock-platforms`, `pict-rs`, `lemmy` with `lemmy.hjson`, and `ghost`.
+- Local platform bootstrap: `scripts/bootstrap_local.py`
 - Operator Console: `frontend/index.html` mounted at `GET /console` (`include_in_schema=False`) and containerized in `Dockerfile`, featuring publication composer, destination multi-select, live job monitor, progress bar, outcomes table, and raw manifest inspector.
+- Real HTTPX adapters & faults test suite: `tests/test_real_adapters_and_faults.py` (17 tests covering 429, 401, 422, 500, timeout-after-create marker reconciliation, quota, renamed fields, real Discourse/Lemmy/Ghost/DevTo/Webhook adapters, 429 retry delay, 5x503 halts, Celery worker/scheduler, verified deletion, and automatic demotion)
 - Hard cases test suite: `tests/test_hard_cases.py` (17 tests covering all hard cases from the brief including non-existent destination 404, weekly cap rescheduling, and ambiguous rule fail-closed blocking)
-- Overall test suite: 108 tests passing, 0 failures across all modules.
+- Overall test suite: 125 tests passing, 0 failures across all modules.
 - Hard cases documentation: `docs/HARD_CASES.md` (audit table linking case ID to test and verified actual outcome)
 - Performance & quality metrics: `docs/METRICS.md` (duplicate posts under retry = 0, rules missed = 0, 1000-row import = 0.086s, precision@10 = 0.285)
 - Delivery report: `REPORT.md`

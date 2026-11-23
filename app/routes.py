@@ -164,6 +164,14 @@ def publish(
     if get_settings().job_backend == "inline":
         from app.pipeline import run_publish_pipeline
         job = run_publish_pipeline(job.id, db)
+    elif get_settings().job_backend == "celery":
+        from app.worker import publish_pipeline_task
+        try:
+            publish_pipeline_task.delay(job.id)
+        except Exception:
+            # Fallback to inline if celery broker is unreachable
+            from app.pipeline import run_publish_pipeline
+            job = run_publish_pipeline(job.id, db)
     else:
         manifest = build_output_manifest(
             providers={"simulation": "1.0.0"},

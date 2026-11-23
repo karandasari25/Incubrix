@@ -1,0 +1,33 @@
+{
+  "run_id": "ffe987b0-a722-4a7a-b7fa-981580421d74",
+  "run_type": "mock",
+  "destination": "Mock forum",
+  "connector_key": "discourse",
+  "passed": false,
+  "level": "L0",
+  "delete_verified": false,
+  "live_url": null,
+  "platform_post_id": null,
+  "steps": [
+    {
+      "step": "validate",
+      "result": {
+        "ok": true,
+        "violations": []
+      }
+    },
+    {
+      "step": "publish_exception",
+      "error": "Platform returned HTTP 403: Port 8080 not allowed for HTTP\n"
+    }
+  ],
+  "warnings": [
+    "publish_exception: Platform returned HTTP 403: Port 8080 not allowed for HTTP\n"
+  ],
+  "alert": {
+    "type": "destination_demoted",
+    "reason": "publish_exception: Platform returned HTTP 403: Port 8080 not allowed for HTTP\n",
+    "violations": []
+  },
+  "tested_at": "2026-11-23T07:40:16.116343+00:00"
+}

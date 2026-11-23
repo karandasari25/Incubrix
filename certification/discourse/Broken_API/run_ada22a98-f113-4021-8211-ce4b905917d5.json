@@ -1,0 +1,43 @@
+{
+  "run_id": "ada22a98-f113-4021-8211-ce4b905917d5",
+  "run_type": "mock",
+  "destination": "Broken API",
+  "connector_key": "discourse",
+  "passed": false,
+  "level": "L0",
+  "delete_verified": false,
+  "live_url": null,
+  "platform_post_id": null,
+  "steps": [
+    {
+      "step": "validate",
+      "result": {
+        "ok": true,
+        "violations": []
+      }
+    },
+    {
+      "step": "publish",
+      "result": {
+        "postId": "renamed-123",
+        "status": "published"
+      },
+      "shape_violations": [
+        "platform_post_id",
+        "live_url"
+      ]
+    }
+  ],
+  "warnings": [
+    "response_shape_validation_failed"
+  ],
+  "alert": {
+    "type": "destination_demoted",
+    "reason": "response_shape_validation_failed",
+    "violations": [
+      "platform_post_id",
+      "live_url"
+    ]
+  },
+  "tested_at": "2026-11-23T07:41:29.242208+00:00"
+}

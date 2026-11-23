@@ -1,0 +1,20 @@
+{
+  database: {
+    host: "lemmy-postgres"
+    port: 5432
+    user: "lemmy"
+    password: "lemmy_password"
+    database: "lemmy"
+    pool_size: 5
+  }
+  hostname: "localhost:1236"
+  pictrs: {
+    url: "http://pict-rs:8080/"
+    api_key: "pict_rs_api_key"
+  }
+  setup: {
+    admin_username: "admin"
+    admin_password: "incubrix_admin_password"
+    site_name: "IncuBrix Local Lemmy"
+  }
+}

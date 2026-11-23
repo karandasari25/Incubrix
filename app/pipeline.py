@@ -266,13 +266,24 @@ def run_publish_pipeline(
             except ConnectorError as ce:
                 error_code = ce.code
                 error_msg = ce.message
-                action = policy.next_action(status=ce.status_code, attempt=attempt)
+                retry_after_val = None
+                if ce.details and isinstance(ce.details, dict):
+                    retry_after_val = str(ce.details.get("retry_after", "")) or None
+                action = policy.next_action(
+                    status=ce.status_code,
+                    retry_after=retry_after_val,
+                    attempt=attempt,
+                )
                 if action.get("retry") and attempt < max_attempts:
                     delay = action.get("delay_seconds", 0)
+                    if ce.status_code == 429:
+                        warnings.append(f"Destination '{dest_dict['name']}': Rate limited (429). Waiting {delay}s before retry")
                     if sleep_fn:
                         sleep_fn(delay)
                     attempt += 1
                     continue
+                if (ce.status_code == 503 or ce.code == "PLATFORM_UNAVAILABLE") and attempt >= 5:
+                    warnings.append(f"Destination '{dest_dict['name']}': Stopped retrying after 5 consecutive 503 PLATFORM_UNAVAILABLE errors")
                 break
             except Exception as exc:
                 error_code = "PUBLISH_FAILED"
