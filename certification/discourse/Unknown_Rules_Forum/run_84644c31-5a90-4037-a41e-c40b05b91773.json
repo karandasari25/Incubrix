@@ -1,0 +1,34 @@
+{
+  "run_id": "84644c31-5a90-4037-a41e-c40b05b91773",
+  "run_type": "mock",
+  "destination": "Unknown Rules Forum",
+  "connector_key": "discourse",
+  "passed": false,
+  "level": "L0",
+  "delete_verified": false,
+  "live_url": null,
+  "platform_post_id": null,
+  "steps": [
+    {
+      "step": "validate",
+      "result": {
+        "ok": false,
+        "violations": [
+          {
+            "code": "DEST_SPEC_VIOLATION",
+            "message": "Failed spec"
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    "destination_spec_violation"
+  ],
+  "alert": {
+    "type": "destination_demoted",
+    "reason": "destination_spec_violation",
+    "violations": []
+  },
+  "tested_at": "2026-11-23T14:59:24.126056+00:00"
+}

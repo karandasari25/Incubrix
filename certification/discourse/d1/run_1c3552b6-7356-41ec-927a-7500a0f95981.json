@@ -1,0 +1,34 @@
+{
+  "run_id": "1c3552b6-7356-41ec-927a-7500a0f95981",
+  "run_type": "mock",
+  "destination": "d1",
+  "connector_key": "discourse",
+  "passed": false,
+  "level": "L0",
+  "delete_verified": false,
+  "live_url": null,
+  "platform_post_id": null,
+  "steps": [
+    {
+      "step": "validate",
+      "result": {
+        "ok": false,
+        "violations": [
+          {
+            "code": "DEST_SPEC_VIOLATION",
+            "message": "Failed spec"
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    "destination_spec_violation"
+  ],
+  "alert": {
+    "type": "destination_demoted",
+    "reason": "destination_spec_violation",
+    "violations": []
+  },
+  "tested_at": "2026-11-23T11:30:33.825695+00:00"
+}

@@ -312,9 +312,23 @@ def certification(
             "warnings": evidence["warnings"], "alert": evidence["alert"]}
 
 
+
 @router.post("/api/v1/catalogue/import", status_code=202)
-def catalogue_import(payload: CatalogueImportRequest) -> dict:
-    report = import_catalogue_csv(payload.csv_path)
+def catalogue_import(
+    payload: CatalogueImportRequest,
+    db: Session = Depends(get_db),
+) -> dict:
+    report = import_catalogue_csv(payload.csv_path, db=db)
+
+    return {
+        "job_status": "succeeded",
+        "warnings": [
+            f"{report['duplicates']} duplicate rows",
+            f"{report['bad_rows']} bad rows",
+        ],
+        "report": report,
+    }
+
     return {
         "job_status": "succeeded",
         "warnings": [

@@ -1,0 +1,34 @@
+{
+  "run_id": "e4b6bb7b-654e-4165-826e-d5e7134cccf3",
+  "run_type": "mock",
+  "destination": "Failing Recert Dest",
+  "connector_key": "discourse",
+  "passed": false,
+  "level": "L0",
+  "delete_verified": false,
+  "live_url": null,
+  "platform_post_id": null,
+  "steps": [
+    {
+      "step": "validate",
+      "result": {
+        "ok": false,
+        "violations": [
+          {
+            "code": "DEST_SPEC_VIOLATION",
+            "message": "Failed spec"
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    "destination_spec_violation"
+  ],
+  "alert": {
+    "type": "destination_demoted",
+    "reason": "destination_spec_violation",
+    "violations": []
+  },
+  "tested_at": "2026-11-23T14:46:28.292363+00:00"
+}

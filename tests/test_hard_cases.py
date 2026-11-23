@@ -1,6 +1,7 @@
 import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from uuid import uuid4
 
 from fastapi.testclient import TestClient
 
@@ -240,26 +241,48 @@ def test_publish_to_non_existent_destination_rejected_with_404():
     assert resp.json()["error"]["code"] == "DESTINATION_NOT_FOUND"
 
 
-def test_pipeline_second_post_to_weekly_cap_destination_rescheduled():
-    # Create destination with weekly frequency cap
+
+def test_pipeline_promotional_post_to_unknown_rules_destination_blocked_fail_closed():
     dest_resp = client.post(
         "/api/v1/destinations",
-        headers={"Idempotency-Key": "dest-weekly-cap-create-key"},
+        headers={"Idempotency-Key": f"unknown-rules-promo-post-{uuid4()}"},
         json={
-            "name": "Weekly Cap Community",
+            "name": "Unknown Rules Forum",
             "url": "http://mock-platforms:8080/discourse",
             "platform_key": "discourse",
             "surface": "topic",
             "connector_key": "discourse",
             "frequency_cap": "weekly",
-            "self_promo_allowed": True,
+            "self_promo_allowed": None,
             "link_policy": "allowed",
             "disclosure_required": False,
-            "level": "L3",
+            "level": "L0",
         },
     )
+
     assert dest_resp.status_code == 201
     dest_id = dest_resp.json()["id"]
+
+    pub = client.post(
+        "/api/v1/publish",
+        headers={"Idempotency-Key": f"unknown-rules-promo-post-{uuid4()}"},
+        json={
+            "destinations": [dest_id],
+            "title": "Promo to Unknown Rules",
+            "body": "This promotional post should be blocked because destination rules are unknown.",
+            "is_promotional": True,
+        },
+    )
+
+    assert pub.status_code == 202
+
+    job = client.get(
+        f"/api/v1/jobs/{pub.json()['job_id']}"
+    ).json()
+
+    assert job["results"][0]["status"] == "blocked"
+    assert "AMBIGUOUS_RULE" in job["results"][0]["error_code"]
+
 
     # Post 1: Should succeed
     pub1 = client.post(
@@ -298,7 +321,7 @@ def test_pipeline_promotional_post_to_unknown_rules_destination_blocked_fail_clo
     # Create destination with None for self_promo_allowed (unknown rules)
     dest_resp = client.post(
         "/api/v1/destinations",
-        headers={"Idempotency-Key": "dest-unknown-rules-create-key"},
+        headers={"Idempotency-Key": f"dest-unknown-rules-create-{uuid4()}"},
         json={
             "name": "Unknown Rules Forum",
             "url": "http://mock-platforms:8080/discourse",
@@ -318,7 +341,7 @@ def test_pipeline_promotional_post_to_unknown_rules_destination_blocked_fail_clo
     # Post promotional content: should fail closed (blocked with AMBIGUOUS_RULE)
     pub = client.post(
         "/api/v1/publish",
-        headers={"Idempotency-Key": "unknown-rules-promo-post-key"},
+        headers={"Idempotency-Key": f"unknown-rules-promo-post-{uuid4()}"},
         json={
             "destinations": [dest_id],
             "title": "Promo to Unknown Rules",

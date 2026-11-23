@@ -1,0 +1,46 @@
+{
+  "run_id": "8ec1b670-1e44-4987-8959-389c7b9f613c",
+  "run_type": "mock",
+  "destination": "Cert Discourse",
+  "connector_key": "discourse",
+  "passed": true,
+  "level": "L3",
+  "delete_verified": true,
+  "live_url": "http://mock-platforms:8080/discourse/t/discourse-post-3",
+  "platform_post_id": "discourse-post-3",
+  "steps": [
+    {
+      "step": "validate",
+      "result": {
+        "ok": true,
+        "violations": []
+      }
+    },
+    {
+      "step": "publish",
+      "result": {
+        "platform_post_id": "discourse-post-3",
+        "live_url": "http://mock-platforms:8080/discourse/t/discourse-post-3",
+        "status": "published"
+      },
+      "shape_violations": []
+    },
+    {
+      "step": "get_status",
+      "result": {
+        "status": "published",
+        "live_url": "http://mock-platforms:8080/discourse/t/discourse-post-3"
+      },
+      "shape_violations": []
+    },
+    {
+      "step": "delete",
+      "result": {
+        "deleted": true
+      }
+    }
+  ],
+  "warnings": [],
+  "alert": null,
+  "tested_at": "2026-11-23T14:59:24.042380+00:00"
+}

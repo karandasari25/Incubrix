@@ -1,0 +1,45 @@
+{
+  "run_id": "20a40e5a-267b-47a5-847e-72d4c4a51ec8",
+  "run_type": "mock",
+  "destination": "Changed API",
+  "connector_key": "discourse",
+  "passed": false,
+  "level": "L0",
+  "delete_verified": false,
+  "live_url": null,
+  "platform_post_id": null,
+  "steps": [
+    {
+      "step": "validate",
+      "result": {
+        "ok": true,
+        "violations": []
+      }
+    },
+    {
+      "step": "publish",
+      "result": {
+        "postId": "renamed",
+        "liveUrl": "https://example.com/renamed"
+      },
+      "shape_violations": [
+        "platform_post_id",
+        "live_url",
+        "status"
+      ]
+    }
+  ],
+  "warnings": [
+    "response_shape_validation_failed"
+  ],
+  "alert": {
+    "type": "destination_demoted",
+    "reason": "response_shape_validation_failed",
+    "violations": [
+      "platform_post_id",
+      "live_url",
+      "status"
+    ]
+  },
+  "tested_at": "2026-11-23T15:02:08.238515+00:00"
+}

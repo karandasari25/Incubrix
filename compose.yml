@@ -1,4 +1,4 @@
-services:
+﻿services:
   app:
     build: .
     env_file:
@@ -9,8 +9,12 @@ services:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND_URL: redis://redis:6379/1
       MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:?Set MINIO_ROOT_USER in .env}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:?Set MINIO_ROOT_PASSWORD in .env}
     ports:
       - "8000:8000"
+    volumes:
+      - ./data:/app/data:ro
     depends_on:
       postgres:
         condition: service_healthy
@@ -19,7 +23,12 @@ services:
 
   worker:
     build: .
-    command: ["celery", "-A", "app.worker:celery_app", "worker", "--loglevel=info"]
+    command:
+      - celery
+      - -A
+      - app.worker:celery_app
+      - worker
+      - --loglevel=info
     env_file:
       - .env
     environment:
@@ -28,6 +37,8 @@ services:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND_URL: redis://redis:6379/1
       MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:?Set MINIO_ROOT_USER in .env}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:?Set MINIO_ROOT_PASSWORD in .env}
     depends_on:
       postgres:
         condition: service_healthy
@@ -36,14 +47,29 @@ services:
 
   scheduler:
     build: .
-    command: ["celery", "-A", "app.worker:celery_app", "beat", "--loglevel=info"]
+    command:
+      - celery
+      - -A
+      - app.worker:celery_app
+      - beat
+      - --loglevel=info
     env_file:
       - .env
     environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-incubrix}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@postgres:5432/${POSTGRES_DB:-incubrix}
+      REDIS_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND_URL: redis://redis:6379/1
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:?Set MINIO_ROOT_USER in .env}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:?Set MINIO_ROOT_PASSWORD in .env}
     depends_on:
-      - worker
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      worker:
+        condition: service_started
 
   postgres:
     image: postgres:16-alpine
@@ -54,7 +80,9 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U incubrix"]
+      test:
+        - CMD-SHELL
+        - pg_isready -U ${POSTGRES_USER:-incubrix} -d ${POSTGRES_DB:-incubrix}
       interval: 5s
       timeout: 5s
       retries: 10
@@ -64,13 +92,13 @@ services:
     ports:
       - "6379:6379"
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s
       timeout: 5s
       retries: 10
 
   minio:
-    image: minio/minio:RELEASE.2024-01-16T16-07-38Z
+    image: chainguard/minio:latest
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:?Set MINIO_ROOT_USER in .env}
@@ -85,7 +113,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["uvicorn", "app.mock_platforms:app", "--host", "0.0.0.0", "--port", "8080"]
+    command:
+      - uvicorn
+      - app.mock_platforms:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
     ports:
       - "8080:8080"
 
@@ -96,19 +130,24 @@ services:
       POSTGRES_USER: lemmy
       POSTGRES_PASSWORD: ${LEMMY_POSTGRES_PASSWORD:?Set LEMMY_POSTGRES_PASSWORD in .env}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U lemmy"]
+      test:
+        - CMD-SHELL
+        - pg_isready -U lemmy -d lemmy
       interval: 5s
       timeout: 5s
       retries: 10
 
   pict-rs:
-    image: asonix/pict-rs:0.5.15
+    image: asonix/pictrs:0.5
     environment:
       PICTRS__SERVER__BIND: 0.0.0.0:8080
-      PICTRS__REPO__TYPE: filesystem
+      PICTRS__REPO__TYPE: sled
       PICTRS__REPO__PATH: /mnt/pict-rs
+      PICTRS__STORE__TYPE: filesystem
+      PICTRS__STORE__PATH: /mnt/files
     volumes:
       - pictrs-data:/mnt/pict-rs
+      - pictrs-files:/mnt/files
 
   lemmy:
     image: dessalines/lemmy:0.19.11
@@ -122,16 +161,16 @@ services:
     volumes:
       - ./lemmy.hjson:/config/config.hjson
     ports:
-      - "1236:1236"
+      - "1236:8536"
 
   lemmy-ui:
     image: dessalines/lemmy-ui:0.19.11
     depends_on:
       - lemmy
     environment:
-      LEMMY_UI_LEMMY_INTERNAL_HOST: lemmy:1236
+      LEMMY_UI_LEMMY_INTERNAL_HOST: lemmy:8536
     ports:
-      - "1235:1235"
+      - "1237:1234"
 
   ghost-mysql:
     image: mysql:8.4
@@ -141,7 +180,7 @@ services:
       MYSQL_PASSWORD: ${GHOST_DB_PASSWORD:?Set GHOST_DB_PASSWORD in .env}
       MYSQL_ROOT_PASSWORD: ${GHOST_DB_ROOT_PASSWORD:?Set GHOST_DB_ROOT_PASSWORD in .env}
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -164,3 +203,4 @@ services:
 volumes:
   minio-data:
   pictrs-data:
+  pictrs-files:
