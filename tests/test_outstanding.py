@@ -37,3 +37,25 @@ def test_outstanding_catalogue_contains_150_rows():
     assert path.is_file()
     lines = path.read_text(encoding="utf-8").splitlines()
     assert len(lines) == 151
+
+
+def test_recommendations_endpoint_returns_ranked_results():
+    from fastapi.testclient import TestClient
+    from app.main import app
+
+    client = TestClient(app)
+    response = client.post(
+        "/api/v1/recommendations",
+        headers={"Idempotency-Key": "rec-endpoint-test-key"},
+        json={
+            "title": "Scaling AI SaaS Infrastructure",
+            "body": "An in-depth guide on deploying models and handling scale.",
+            "tags": ["ai", "saas", "infrastructure"],
+            "language": "en",
+        },
+    )
+    assert response.status_code == 200
+    body = response.json()
+    assert "recommendations" in body
+    assert isinstance(body["recommendations"], list)
+

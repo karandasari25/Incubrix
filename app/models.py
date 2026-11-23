@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from sqlalchemy import JSON, DateTime, Integer, String
+from sqlalchemy import JSON, Boolean, DateTime, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -45,15 +45,50 @@ class Destination(Base):
     est_audience: Mapped[int | None] = mapped_column(Integer, nullable=True)
     rules_url: Mapped[str | None] = mapped_column(String(2048), nullable=True)
     frequency_cap: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    self_promo_allowed: Mapped[bool | None] = mapped_column(nullable=True)
+    self_promo_allowed: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
     link_policy: Mapped[str | None] = mapped_column(String(100), nullable=True)
-    disclosure_required: Mapped[bool | None] = mapped_column(nullable=True)
-    automation_allowed: Mapped[bool | None] = mapped_column(nullable=True)
+    disclosure_required: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    automation_allowed: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
     connector_key: Mapped[str] = mapped_column(String(100), nullable=False)
     relevance_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     relevance_reason: Mapped[str | None] = mapped_column(String(2048), nullable=True)
     level: Mapped[str] = mapped_column(String(2), default="L0")
     last_certified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    status: Mapped[str] = mapped_column(String(20), default="active")
+    excluded: Mapped[bool] = mapped_column(Boolean, default=False)
+    submit_url_template: Mapped[str | None] = mapped_column(String(2048), nullable=True)
+    member_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    rules_verified: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class Publication(Base):
+    __tablename__ = "publications"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    job_id: Mapped[str] = mapped_column(String(36), index=True)
+    destination_id: Mapped[str] = mapped_column(String(36), index=True)
+    status: Mapped[str] = mapped_column(String(30), default="scheduled")
+    platform_post_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    live_url: Mapped[str | None] = mapped_column(String(2048), nullable=True)
+    marker: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    error_code: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    scheduled_for: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class RuleProposal(Base):
+    __tablename__ = "rule_proposals"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    destination_id: Mapped[str] = mapped_column(String(36), index=True)
+    proposed_rules: Mapped[dict] = mapped_column(JSON, default=dict)
+    source_text: Mapped[str | None] = mapped_column(String(4096), nullable=True)
+    status: Mapped[str] = mapped_column(String(30), default="pending_confirmation")
+    confirmed_by: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    ai_generated: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
 
 class CertificationEvidence(Base):
@@ -63,7 +98,7 @@ class CertificationEvidence(Base):
     destination_id: Mapped[str] = mapped_column(String(36), index=True)
     connector_key: Mapped[str] = mapped_column(String(100), nullable=False)
     run_type: Mapped[str] = mapped_column(String(10), nullable=False)
-    passed: Mapped[bool] = mapped_column(nullable=False)
+    passed: Mapped[bool] = mapped_column(Boolean, nullable=False)
     level: Mapped[str] = mapped_column(String(2), nullable=False)
     evidence: Mapped[dict] = mapped_column(JSON, nullable=False)
     warnings: Mapped[list] = mapped_column(JSON, default=list)
@@ -80,3 +115,4 @@ class AlertTicket(Base):
     details: Mapped[dict] = mapped_column(JSON, default=dict)
     status: Mapped[str] = mapped_column(String(20), default="open")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+

@@ -1,0 +1,757 @@
+{
+  "imported": 150,
+  "duplicates": 0,
+  "bad_rows": 0,
+  "rows": [
+    {
+      "row": 2,
+      "url": "https://community.openai.com",
+      "errors": []
+    },
+    {
+      "row": 3,
+      "url": "https://discuss.huggingface.co",
+      "errors": []
+    },
+    {
+      "row": 4,
+      "url": "https://forums.fast.ai",
+      "errors": []
+    },
+    {
+      "row": 5,
+      "url": "https://discuss.python.org",
+      "errors": []
+    },
+    {
+      "row": 6,
+      "url": "https://users.rust-lang.org",
+      "errors": []
+    },
+    {
+      "row": 7,
+      "url": "https://discourse.julialang.org",
+      "errors": []
+    },
+    {
+      "row": 8,
+      "url": "https://meta.discourse.org",
+      "errors": []
+    },
+    {
+      "row": 9,
+      "url": "https://discourse.mozilla.org",
+      "errors": []
+    },
+    {
+      "row": 10,
+      "url": "https://discussion.fedoraproject.org",
+      "errors": []
+    },
+    {
+      "row": 11,
+      "url": "https://discuss.kubernetes.io",
+      "errors": []
+    },
+    {
+      "row": 12,
+      "url": "https://forums.docker.com",
+      "errors": []
+    },
+    {
+      "row": 13,
+      "url": "https://forum.gitlab.com",
+      "errors": []
+    },
+    {
+      "row": 14,
+      "url": "https://community.home-assistant.io",
+      "errors": []
+    },
+    {
+      "row": 15,
+      "url": "https://help.nextcloud.com",
+      "errors": []
+    },
+    {
+      "row": 16,
+      "url": "https://discuss.streamlit.io",
+      "errors": []
+    },
+    {
+      "row": 17,
+      "url": "https://discuss.pytorch.org",
+      "errors": []
+    },
+    {
+      "row": 18,
+      "url": "https://discuss.ray.io",
+      "errors": []
+    },
+    {
+      "row": 19,
+      "url": "https://community.langchain.com",
+      "errors": []
+    },
+    {
+      "row": 20,
+      "url": "https://community.wandb.ai",
+      "errors": []
+    },
+    {
+      "row": 21,
+      "url": "https://community.octoprint.org",
+      "errors": []
+    },
+    {
+      "row": 22,
+      "url": "https://forum.opensearch.org",
+      "errors": []
+    },
+    {
+      "row": 23,
+      "url": "https://www.mongodb.com/community/forums",
+      "errors": []
+    },
+    {
+      "row": 24,
+      "url": "https://community.neo4j.com",
+      "errors": []
+    },
+    {
+      "row": 25,
+      "url": "https://posthog.com/questions",
+      "errors": []
+    },
+    {
+      "row": 26,
+      "url": "https://forum.strapi.io",
+      "errors": []
+    },
+    {
+      "row": 27,
+      "url": "https://forum.ghost.org",
+      "errors": []
+    },
+    {
+      "row": 28,
+      "url": "https://forum.mattermost.com",
+      "errors": []
+    },
+    {
+      "row": 29,
+      "url": "https://community.grafana.com",
+      "errors": []
+    },
+    {
+      "row": 30,
+      "url": "https://discuss.elastic.co",
+      "errors": []
+    },
+    {
+      "row": 31,
+      "url": "https://discourse.algolia.com",
+      "errors": []
+    },
+    {
+      "row": 32,
+      "url": "https://lemmy.world/c/technology",
+      "errors": []
+    },
+    {
+      "row": 33,
+      "url": "https://lemmy.ml/c/programming",
+      "errors": []
+    },
+    {
+      "row": 34,
+      "url": "https://lemmy.world/c/localllama",
+      "errors": []
+    },
+    {
+      "row": 35,
+      "url": "https://lemmy.world/c/selfhosted",
+      "errors": []
+    },
+    {
+      "row": 36,
+      "url": "https://lemmy.world/c/linux",
+      "errors": []
+    },
+    {
+      "row": 37,
+      "url": "https://lemmy.world/c/sysadmin",
+      "errors": []
+    },
+    {
+      "row": 38,
+      "url": "https://lemmy.world/c/ai",
+      "errors": []
+    },
+    {
+      "row": 39,
+      "url": "https://lemmy.world/c/webdev",
+      "errors": []
+    },
+    {
+      "row": 40,
+      "url": "https://lemmy.world/c/opensource",
+      "errors": []
+    },
+    {
+      "row": 41,
+      "url": "https://lemmy.world/c/python",
+      "errors": []
+    },
+    {
+      "row": 42,
+      "url": "https://lemmy.world/c/rust",
+      "errors": []
+    },
+    {
+      "row": 43,
+      "url": "https://lemmy.world/c/privacy",
+      "errors": []
+    },
+    {
+      "row": 44,
+      "url": "https://lemmy.world/c/devops",
+      "errors": []
+    },
+    {
+      "row": 45,
+      "url": "https://lemmy.world/c/dataisbeautiful",
+      "errors": []
+    },
+    {
+      "row": 46,
+      "url": "https://lemmy.world/c/hardware",
+      "errors": []
+    },
+    {
+      "row": 47,
+      "url": "https://lemmy.world/c/cybersecurity",
+      "errors": []
+    },
+    {
+      "row": 48,
+      "url": "https://lemmy.world/c/netsec",
+      "errors": []
+    },
+    {
+      "row": 49,
+      "url": "https://lemmy.world/c/entrepreneur",
+      "errors": []
+    },
+    {
+      "row": 50,
+      "url": "https://lemmy.world/c/startups",
+      "errors": []
+    },
+    {
+      "row": 51,
+      "url": "https://lemmy.world/c/saas",
+      "errors": []
+    },
+    {
+      "row": 52,
+      "url": "https://lemmy.world/c/videography",
+      "errors": []
+    },
+    {
+      "row": 53,
+      "url": "https://lemmy.world/c/videoediting",
+      "errors": []
+    },
+    {
+      "row": 54,
+      "url": "https://lemmy.world/c/photography",
+      "errors": []
+    },
+    {
+      "row": 55,
+      "url": "https://lemmy.world/c/podcasting",
+      "errors": []
+    },
+    {
+      "row": 56,
+      "url": "https://lemmy.world/c/mediaproduction",
+      "errors": []
+    },
+    {
+      "row": 57,
+      "url": "https://dev.to/t/ai",
+      "errors": []
+    },
+    {
+      "row": 58,
+      "url": "https://dev.to/t/machinelearning",
+      "errors": []
+    },
+    {
+      "row": 59,
+      "url": "https://dev.to/t/webdev",
+      "errors": []
+    },
+    {
+      "row": 60,
+      "url": "https://dev.to/t/python",
+      "errors": []
+    },
+    {
+      "row": 61,
+      "url": "https://dev.to/t/javascript",
+      "errors": []
+    },
+    {
+      "row": 62,
+      "url": "https://dev.to/t/typescript",
+      "errors": []
+    },
+    {
+      "row": 63,
+      "url": "https://dev.to/t/devops",
+      "errors": []
+    },
+    {
+      "row": 64,
+      "url": "https://dev.to/t/cloud",
+      "errors": []
+    },
+    {
+      "row": 65,
+      "url": "https://dev.to/t/rust",
+      "errors": []
+    },
+    {
+      "row": 66,
+      "url": "https://dev.to/t/opensource",
+      "errors": []
+    },
+    {
+      "row": 67,
+      "url": "https://dev.to/t/architecture",
+      "errors": []
+    },
+    {
+      "row": 68,
+      "url": "https://dev.to/t/microservices",
+      "errors": []
+    },
+    {
+      "row": 69,
+      "url": "https://dev.to/t/database",
+      "errors": []
+    },
+    {
+      "row": 70,
+      "url": "https://dev.to/t/api",
+      "errors": []
+    },
+    {
+      "row": 71,
+      "url": "https://dev.to/t/security",
+      "errors": []
+    },
+    {
+      "row": 72,
+      "url": "https://dev.to/t/testing",
+      "errors": []
+    },
+    {
+      "row": 73,
+      "url": "https://dev.to/t/performance",
+      "errors": []
+    },
+    {
+      "row": 74,
+      "url": "https://dev.to/t/datascience",
+      "errors": []
+    },
+    {
+      "row": 75,
+      "url": "https://dev.to/t/frontend",
+      "errors": []
+    },
+    {
+      "row": 76,
+      "url": "https://dev.to/t/backend",
+      "errors": []
+    },
+    {
+      "row": 77,
+      "url": "https://hashnode.com/n/ai",
+      "errors": []
+    },
+    {
+      "row": 78,
+      "url": "https://hashnode.com/n/machine-learning",
+      "errors": []
+    },
+    {
+      "row": 79,
+      "url": "https://hashnode.com/n/web-dev",
+      "errors": []
+    },
+    {
+      "row": 80,
+      "url": "https://hashnode.com/n/devops",
+      "errors": []
+    },
+    {
+      "row": 81,
+      "url": "https://hashnode.com/n/python",
+      "errors": []
+    },
+    {
+      "row": 82,
+      "url": "https://hashnode.com/n/cloud",
+      "errors": []
+    },
+    {
+      "row": 83,
+      "url": "https://hashnode.com/n/system-design",
+      "errors": []
+    },
+    {
+      "row": 84,
+      "url": "https://hashnode.com/n/nextjs",
+      "errors": []
+    },
+    {
+      "row": 85,
+      "url": "https://hashnode.com/n/kubernetes",
+      "errors": []
+    },
+    {
+      "row": 86,
+      "url": "https://hashnode.com/n/open-source",
+      "errors": []
+    },
+    {
+      "row": 87,
+      "url": "https://hashnode.com/n/docker",
+      "errors": []
+    },
+    {
+      "row": 88,
+      "url": "https://hashnode.com/n/graphql",
+      "errors": []
+    },
+    {
+      "row": 89,
+      "url": "https://hashnode.com/n/developer-tools",
+      "errors": []
+    },
+    {
+      "row": 90,
+      "url": "https://hashnode.com/n/career",
+      "errors": []
+    },
+    {
+      "row": 91,
+      "url": "https://hashnode.com/n/data-engineering",
+      "errors": []
+    },
+    {
+      "row": 92,
+      "url": "https://ghost.org/blog/engineering",
+      "errors": []
+    },
+    {
+      "row": 93,
+      "url": "https://blog.bytebytego.com",
+      "errors": []
+    },
+    {
+      "row": 94,
+      "url": "https://newsletter.pragmaticengineer.com",
+      "errors": []
+    },
+    {
+      "row": 95,
+      "url": "https://stratechery.com",
+      "errors": []
+    },
+    {
+      "row": 96,
+      "url": "https://www.lennysnewsletter.com",
+      "errors": []
+    },
+    {
+      "row": 97,
+      "url": "https://www.generalist.com",
+      "errors": []
+    },
+    {
+      "row": 98,
+      "url": "https://www.platformer.news",
+      "errors": []
+    },
+    {
+      "row": 99,
+      "url": "https://softwareleadweekly.com",
+      "errors": []
+    },
+    {
+      "row": 100,
+      "url": "https://tldr.tech",
+      "errors": []
+    },
+    {
+      "row": 101,
+      "url": "https://benn.substack.com",
+      "errors": []
+    },
+    {
+      "row": 102,
+      "url": "https://www.notboring.co",
+      "errors": []
+    },
+    {
+      "row": 103,
+      "url": "https://creatoreconomy.so",
+      "errors": []
+    },
+    {
+      "row": 104,
+      "url": "https://afore.vc/blog",
+      "errors": []
+    },
+    {
+      "row": 105,
+      "url": "https://producthabits.com/saas-weekly",
+      "errors": []
+    },
+    {
+      "row": 106,
+      "url": "https://www.indiehackers.com",
+      "errors": []
+    },
+    {
+      "row": 107,
+      "url": "https://convertkit.com/broadcasts/ai-builders",
+      "errors": []
+    },
+    {
+      "row": 108,
+      "url": "https://convertkit.com/broadcasts/video-masterclass",
+      "errors": []
+    },
+    {
+      "row": 109,
+      "url": "https://convertkit.com/broadcasts/saas-dispatch",
+      "errors": []
+    },
+    {
+      "row": 110,
+      "url": "https://convertkit.com/broadcasts/growth-brief",
+      "errors": []
+    },
+    {
+      "row": 111,
+      "url": "https://convertkit.com/broadcasts/bootstrapped-weekly",
+      "errors": []
+    },
+    {
+      "row": 112,
+      "url": "https://convertkit.com/broadcasts/creator-bulletin",
+      "errors": []
+    },
+    {
+      "row": 113,
+      "url": "https://convertkit.com/broadcasts/video-editor",
+      "errors": []
+    },
+    {
+      "row": 114,
+      "url": "https://convertkit.com/broadcasts/b2b-marketing",
+      "errors": []
+    },
+    {
+      "row": 115,
+      "url": "https://convertkit.com/broadcasts/solopreneur-systems",
+      "errors": []
+    },
+    {
+      "row": 116,
+      "url": "https://convertkit.com/broadcasts/dev-content",
+      "errors": []
+    },
+    {
+      "row": 117,
+      "url": "https://feeds.video-syndicate.example.com/ai-research.xml",
+      "errors": []
+    },
+    {
+      "row": 118,
+      "url": "https://feeds.video-syndicate.example.com/saas-demos.xml",
+      "errors": []
+    },
+    {
+      "row": 119,
+      "url": "https://feeds.video-syndicate.example.com/keynotes.xml",
+      "errors": []
+    },
+    {
+      "row": 120,
+      "url": "https://feeds.video-syndicate.example.com/tutorials.xml",
+      "errors": []
+    },
+    {
+      "row": 121,
+      "url": "https://feeds.video-syndicate.example.com/creator-studio.xml",
+      "errors": []
+    },
+    {
+      "row": 122,
+      "url": "https://feeds.video-syndicate.example.com/oss-demos.xml",
+      "errors": []
+    },
+    {
+      "row": 123,
+      "url": "https://feeds.video-syndicate.example.com/pitches.xml",
+      "errors": []
+    },
+    {
+      "row": 124,
+      "url": "https://feeds.video-syndicate.example.com/launches.xml",
+      "errors": []
+    },
+    {
+      "row": 125,
+      "url": "https://feeds.video-syndicate.example.com/code-walkthroughs.xml",
+      "errors": []
+    },
+    {
+      "row": 126,
+      "url": "https://feeds.video-syndicate.example.com/ai-podcast.xml",
+      "errors": []
+    },
+    {
+      "row": 127,
+      "url": "https://partner-syndicate.example.com/webhook/technews",
+      "errors": []
+    },
+    {
+      "row": 128,
+      "url": "https://partner-syndicate.example.com/webhook/startupwire",
+      "errors": []
+    },
+    {
+      "row": 129,
+      "url": "https://partner-syndicate.example.com/webhook/devhub",
+      "errors": []
+    },
+    {
+      "row": 130,
+      "url": "https://partner-syndicate.example.com/webhook/creatordigest",
+      "errors": []
+    },
+    {
+      "row": 131,
+      "url": "https://partner-syndicate.example.com/webhook/aiweekly",
+      "errors": []
+    },
+    {
+      "row": 132,
+      "url": "https://partner-syndicate.example.com/webhook/saasreviews",
+      "errors": []
+    },
+    {
+      "row": 133,
+      "url": "https://partner-syndicate.example.com/webhook/creatornet",
+      "errors": []
+    },
+    {
+      "row": 134,
+      "url": "https://partner-syndicate.example.com/webhook/producthunt",
+      "errors": []
+    },
+    {
+      "row": 135,
+      "url": "https://partner-syndicate.example.com/webhook/founderdaily",
+      "errors": []
+    },
+    {
+      "row": 136,
+      "url": "https://partner-syndicate.example.com/webhook/globaltech",
+      "errors": []
+    },
+    {
+      "row": 137,
+      "url": "https://news.ycombinator.com",
+      "errors": []
+    },
+    {
+      "row": 138,
+      "url": "https://lobste.rs",
+      "errors": []
+    },
+    {
+      "row": 139,
+      "url": "https://www.reddit.com/r/MachineLearning",
+      "errors": []
+    },
+    {
+      "row": 140,
+      "url": "https://www.reddit.com/r/LocalLLaMA",
+      "errors": []
+    },
+    {
+      "row": 141,
+      "url": "https://www.reddit.com/r/SaaS",
+      "errors": []
+    },
+    {
+      "row": 142,
+      "url": "https://www.reddit.com/r/Entrepreneur",
+      "errors": []
+    },
+    {
+      "row": 143,
+      "url": "https://www.reddit.com/r/VideoEditing",
+      "errors": []
+    },
+    {
+      "row": 144,
+      "url": "https://www.reddit.com/r/webdev",
+      "errors": []
+    },
+    {
+      "row": 145,
+      "url": "https://www.reddit.com/r/startups",
+      "errors": []
+    },
+    {
+      "row": 146,
+      "url": "https://www.producthunt.com",
+      "errors": []
+    },
+    {
+      "row": 147,
+      "url": "https://betalist.com",
+      "errors": []
+    },
+    {
+      "row": 148,
+      "url": "https://stackoverflow.com/collectives",
+      "errors": []
+    },
+    {
+      "row": 149,
+      "url": "https://youtube.com/community",
+      "errors": []
+    },
+    {
+      "row": 150,
+      "url": "https://www.linkedin.com/feed",
+      "errors": []
+    },
+    {
+      "row": 151,
+      "url": "https://x.com/i/communities",
+      "errors": []
+    }
+  ]
+}

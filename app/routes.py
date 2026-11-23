@@ -7,10 +7,11 @@ from app.config import get_settings
 from app.database import get_db
 from app.errors import APIError
 from app.models import Job
-from app.schemas import PublishRequest, DestinationCreate, CatalogueImportRequest, AIRulesCaptureRequest
+from app.schemas import PublishRequest, DestinationCreate, CatalogueImportRequest, AIRulesCaptureRequest, RecommendationRequest
 from hashlib import sha256
 from app.catalogue import import_catalogue_csv
 from app.ai import MockAIAdapter
+from app.recommendation import recommend_destinations_for_content
 from app.recertification import select_due_destinations
 from datetime import datetime, timezone
 
@@ -50,10 +51,22 @@ def ready(db: Session = Depends(get_db)) -> dict:
     return {"status": "ready", "simulation_mode": settings.simulation_mode}
 
 
+PUBLISH_REQUEST_FIELDS = {
+    "destinations",
+    "title",
+    "body",
+    "canonical_link",
+    "tags",
+    "is_promotional",
+    "ai_generated",
+    "callback_url",
+}
+
+
 def _clean_payload(payload_dict: dict) -> dict:
     if not isinstance(payload_dict, dict):
         return {}
-    return {k: v for k, v in payload_dict.items() if not k.startswith("_")}
+    return {k: payload_dict.get(k) for k in PUBLISH_REQUEST_FIELDS if k in payload_dict}
 
 
 @router.post("/api/v1/publish", status_code=202)
@@ -124,33 +137,46 @@ def publish(
             retryable=False,
         )
 
-    manifest = build_output_manifest(
+    if get_settings().job_backend == "inline":
+        from app.pipeline import run_publish_pipeline
+        job = run_publish_pipeline(job.id, db)
+    else:
+        manifest = build_output_manifest(
+            providers={"simulation": "1.0.0"},
+            settings={"simulation_mode": get_settings().simulation_mode},
+            seed=0,
+            timings={"accepted_seconds": 0.01},
+            warnings=["No platform posts were created by the Phase 1 job skeleton"],
+            cost_estimate=0.0,
+        )
+        result_file = json.dumps({
+            "job_id": job.id,
+            "status": job.status,
+            "manifest": manifest,
+        }, indent=2).encode("utf-8")
+        download_link = OutputStore().save(
+            f"jobs/{job.id}/result.json",
+            result_file,
+            "application/json",
+        )
+        job.result_links = [download_link]
+        job.payload = {**job.payload, "_output_manifest": manifest}
+        db.commit()
+
+    manifest = job.payload.get("_output_manifest") or build_output_manifest(
         providers={"simulation": "1.0.0"},
         settings={"simulation_mode": get_settings().simulation_mode},
         seed=0,
         timings={"accepted_seconds": 0.01},
-        warnings=["No platform posts were created by the Phase 1 job skeleton"],
+        warnings=job.payload.get("warnings") or [],
         cost_estimate=0.0,
     )
-    result_file = json.dumps({
-        "job_id": job.id,
-        "status": job.status,
-        "manifest": manifest,
-    }, indent=2).encode("utf-8")
-    download_link = OutputStore().save(
-        f"jobs/{job.id}/result.json",
-        result_file,
-        "application/json",
-    )
-    job.result_links = [download_link]
-    job.payload = {**job.payload, "_output_manifest": manifest}
-    db.commit()
     return {
         "job_id": job.id,
         "status": job.status,
         "replayed": False,
         "result_links": job.result_links,
-        "warnings": manifest["warnings"],
+        "warnings": job.payload.get("warnings") or manifest.get("warnings", []),
         "output_manifest": manifest,
     }
 
@@ -165,6 +191,8 @@ def get_job(job_id: str, db: Session = Depends(get_db)) -> dict:
         "status": job.status,
         "progress": job.progress,
         "result_links": job.result_links or [],
+        "results": (job.payload or {}).get("results", []),
+        "warnings": (job.payload or {}).get("warnings", []),
     }
 
 
@@ -294,3 +322,35 @@ def certification_due(
     ]
     due = select_due_destinations(records, interval_days=interval_days)
     return {"interval_days": interval_days, "due": due}
+
+
+@router.post("/api/v1/recommendations")
+def get_recommendations(
+    payload: RecommendationRequest,
+    db: Session = Depends(get_db),
+) -> dict:
+    destinations = db.query(Destination).all()
+    dest_dicts = [
+        {
+            "id": d.id,
+            "name": d.name,
+            "url": d.url,
+            "platform_key": d.platform_key,
+            "connector_key": d.connector_key,
+            "surface": d.surface,
+            "category": d.category,
+            "audience_tags": d.audience_tags or [],
+            "language": d.language or "en",
+            "frequency_cap": d.frequency_cap or "weekly",
+            "self_promo_allowed": True if d.self_promo_allowed is None else d.self_promo_allowed,
+            "link_policy": d.link_policy or "allowed",
+            "disclosure_required": False if d.disclosure_required is None else d.disclosure_required,
+            "relevance_score": d.relevance_score or 1,
+            "level": d.level,
+            "status": d.status,
+            "excluded": d.excluded,
+        }
+        for d in destinations
+    ]
+    ranked = recommend_destinations_for_content(dest_dicts, payload.model_dump())
+    return {"recommendations": ranked, "count": len(ranked)}

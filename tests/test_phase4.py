@@ -258,3 +258,103 @@ def test_frequency_cap_returns_rescheduled_action_with_scheduled_for():
     assert result["decision"] == "blocked"
     assert "FREQUENCY_CAP" in result["reasons"]
     assert "scheduled_for" in result
+
+
+def test_publish_pipeline_executes_and_updates_job_results():
+    from fastapi.testclient import TestClient
+    from app.main import app
+
+    client = TestClient(app)
+    # 1. Create a destination
+    dest_resp = client.post(
+        "/api/v1/destinations",
+        headers={"Idempotency-Key": "dest-create-forum-1"},
+        json={
+            "name": "Pipeline Forum",
+            "url": "http://mock-platforms:8080/discourse",
+            "platform_key": "discourse",
+            "surface": "topic",
+            "connector_key": "discourse",
+            "frequency_cap": "weekly",
+            "self_promo_allowed": True,
+            "link_policy": "allowed",
+            "disclosure_required": False,
+            "level": "L3",
+        },
+    )
+    assert dest_resp.status_code == 201
+    dest_id = dest_resp.json()["id"]
+
+    # 2. Publish to it
+    pub_resp = client.post(
+        "/api/v1/publish",
+        headers={"Idempotency-Key": "pipeline-exec-test-key"},
+        json={
+            "destinations": [dest_id],
+            "title": "Pipeline Integration Post",
+            "body": "Automated pipeline integration verification content.",
+            "is_promotional": False,
+            "ai_generated": False,
+        },
+    )
+    assert pub_resp.status_code == 202
+    job_id = pub_resp.json()["job_id"]
+
+    # 3. Check job details
+    job_resp = client.get(f"/api/v1/jobs/{job_id}")
+    assert job_resp.status_code == 200
+    job_data = job_resp.json()
+    assert job_data["status"] == "succeeded"
+    assert job_data["progress"] == 100
+    assert len(job_data["results"]) == 1
+    assert job_data["results"][0]["status"] == "succeeded"
+    assert "platform_post_id" in job_data["results"][0]
+
+
+def test_publish_pipeline_blocks_promotional_content():
+    from fastapi.testclient import TestClient
+    from app.main import app
+
+    client = TestClient(app)
+    # Create non-promo destination
+    dest_resp = client.post(
+        "/api/v1/destinations",
+        headers={"Idempotency-Key": "dest-create-nopromo-1"},
+        json={
+            "name": "No Promo Community",
+            "url": "http://mock-platforms:8080/lemmy",
+            "platform_key": "lemmy",
+            "surface": "post",
+            "connector_key": "lemmy",
+            "frequency_cap": "weekly",
+            "self_promo_allowed": False,
+            "link_policy": "allowed",
+            "disclosure_required": False,
+            "level": "L3",
+        },
+    )
+    assert dest_resp.status_code == 201
+    dest_id = dest_resp.json()["id"]
+
+    # Publish promotional content
+    pub_resp = client.post(
+        "/api/v1/publish",
+        headers={"Idempotency-Key": "pipeline-blocked-promo-key"},
+        json={
+            "destinations": [dest_id],
+            "title": "Buy Our SaaS Product",
+            "body": "Limited time offer 50% discount.",
+            "is_promotional": True,
+            "ai_generated": False,
+        },
+    )
+    assert pub_resp.status_code == 202
+    job_id = pub_resp.json()["job_id"]
+
+    job_resp = client.get(f"/api/v1/jobs/{job_id}")
+    assert job_resp.status_code == 200
+    job_data = job_resp.json()
+    assert len(job_data["results"]) == 1
+    assert job_data["results"][0]["status"] == "blocked"
+    assert "SELF_PROMOTION_NOT_ALLOWED" in job_data["results"][0]["reasons"]
+

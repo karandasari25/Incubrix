@@ -246,6 +246,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/recommendations:
+    post:
+      summary: Get Recommendations
+      operationId: get_recommendations_api_v1_recommendations_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecommendationRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Get Recommendations Api V1 Recommendations Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /connector/v1/{connector_key}/validate:
     post:
       summary: Validate
@@ -471,9 +496,6 @@ components:
           type: object
           title: Destination
       type: object
-      required:
-      - rendition
-      - destination
       title: AssistRequest
     AuthRequest:
       properties:
@@ -482,8 +504,6 @@ components:
           type: object
           title: Connection
       type: object
-      required:
-      - connection
       title: AuthRequest
     CatalogueImportRequest:
       properties:
@@ -611,11 +631,10 @@ components:
         since:
           type: string
           title: Since
+          default: ''
       type: object
       required:
       - platform_post_id
-      - connection
-      - since
       title: MetricsRequest
     PostRequest:
       properties:
@@ -629,8 +648,45 @@ components:
       type: object
       required:
       - platform_post_id
-      - connection
       title: PostRequest
+    RecommendationRequest:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        body:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body
+        canonical_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Canonical Link
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        language:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Language
+          default: en
+        is_promotional:
+          type: boolean
+          title: Is Promotional
+          default: false
+        ai_generated:
+          type: boolean
+          title: Ai Generated
+          default: false
+      type: object
+      title: RecommendationRequest
     ValidateRequest:
       properties:
         rendition:
@@ -646,10 +702,6 @@ components:
           type: object
           title: Connection
       type: object
-      required:
-      - rendition
-      - destination
-      - connection
       title: ValidateRequest
     ValidationError:
       properties:
@@ -696,9 +748,6 @@ components:
           title: Idempotency Key
       type: object
       required:
-      - rendition
-      - destination
-      - connection
       - idempotency_key
       title: PublishRequest
     app__schemas__PublishRequest:

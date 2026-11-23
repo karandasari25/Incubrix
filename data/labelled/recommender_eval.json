@@ -1,0 +1,206 @@
+{
+  "status": "draft_needs_human_review",
+  "notes": "Draft labels created from IncuBrix target audiences (AI, video, SaaS, marketing, creator economy, founders). Requires human domain review before claiming production precision.",
+  "items": [
+    {
+      "id": "item-01",
+      "title": "Deploying Open-Source LLMs with vLLM on Kubernetes",
+      "body": "Guide to low-latency inference serving and GPU node autoscaling.",
+      "tags": ["ai", "infrastructure", "saas", "devops"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["huggingface", "devto", "discourse-ai", "lemmy-localllama", "hashnode-tech"]
+    },
+    {
+      "id": "item-02",
+      "title": "How to Bootstrap a B2B SaaS from $0 to $10k MRR",
+      "body": "Lessons learned in finding early design partners and pricing experiments.",
+      "tags": ["saas", "founders", "bootstrap", "business"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["indiehackers", "discourse-startups", "ghost-founders", "lemmy-entrepreneur"]
+    },
+    {
+      "id": "item-03",
+      "title": "Short-Form Video Editing Workflow with DaVinci Resolve",
+      "body": "Color grading and audio ducking tips for YouTube Shorts and TikTok.",
+      "tags": ["video", "creators", "editing", "youtube"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["mrss-video", "creator-forum", "ghost-video", "discourse-creators"]
+    },
+    {
+      "id": "item-04",
+      "title": "B2B Content Marketing Flywheel for Developer Tools",
+      "body": "How technical tutorials and documentation drive inbound developer adoption.",
+      "tags": ["marketing", "saas", "creators", "founders"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["devto", "hashnode-tech", "ghost-marketing", "kit-newsletter"]
+    },
+    {
+      "id": "item-05",
+      "title": "Fine-Tuning Whisper for Accented Speech Recognition",
+      "body": "Dataset preparation and LoRA fine-tuning for noisy audio environments.",
+      "tags": ["ai", "video", "audio", "machine-learning"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["huggingface", "discourse-ai", "devto", "lemmy-localllama"]
+    },
+    {
+      "id": "item-06",
+      "title": "Product-Led Growth Metrics Every Founder Must Track",
+      "body": "Activation rates, time-to-value, and churn analysis for self-serve software.",
+      "tags": ["saas", "founders", "analytics", "product"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["indiehackers", "ghost-founders", "discourse-startups"]
+    },
+    {
+      "id": "item-07",
+      "title": "Building a Headless CMS Architecture with Ghost and Next.js",
+      "body": "Integrating Ghost Content API with Next.js ISR for developer blogs.",
+      "tags": ["devto", "ghost", "saas", "webdev"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["ghost-tech", "devto", "hashnode-tech"]
+    },
+    {
+      "id": "item-08",
+      "title": "The Creator Economy in 2026: Diversifying Beyond Ad Revenue",
+      "body": "Digital products, memberships, and community monetization strategies.",
+      "tags": ["creators", "marketing", "video", "founders"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["kit-newsletter", "creator-forum", "ghost-founders"]
+    },
+    {
+      "id": "item-09",
+      "title": "Prompt Engineering Techniques for Complex Reasoning Tasks",
+      "body": "Chain-of-thought, self-consistency, and structured JSON output patterns.",
+      "tags": ["ai", "machine-learning", "devops"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["discourse-ai", "devto", "lemmy-localllama"]
+    },
+    {
+      "id": "item-10",
+      "title": "Pricing Strategy: Value-Based vs Cost-Plus for Early Startups",
+      "body": "Determining willingness to pay and tiered SaaS packaging structures.",
+      "tags": ["saas", "founders", "business"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["indiehackers", "discourse-startups", "ghost-founders"]
+    },
+    {
+      "id": "item-11",
+      "title": "Lighting and Camera Setup for Home Video Studios Under $1,000",
+      "body": "Key lights, softboxes, and mirrorless capture cards for professional video.",
+      "tags": ["video", "creators", "hardware"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["creator-forum", "mrss-video", "discourse-creators"]
+    },
+    {
+      "id": "item-12",
+      "title": "SEO Tactics for Technical Blogs: Canonical URLs and Topic Clusters",
+      "body": "Structured data, interlinking, and developer search intent optimization.",
+      "tags": ["marketing", "seo", "devto", "creators"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["devto", "hashnode-tech", "ghost-marketing"]
+    },
+    {
+      "id": "item-13",
+      "title": "Managing High-Throughput Webhooks with Celery and Redis",
+      "body": "Idempotent processing, dead-letter queues, and backpressure handling.",
+      "tags": ["saas", "infrastructure", "backend", "python"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["devto", "hashnode-tech", "discourse-startups"]
+    },
+    {
+      "id": "item-14",
+      "title": "Guide de lancement d'une startup SaaS en Europe",
+      "body": "Conseils juridiques, conformité RGPD et financement pour créateurs européens.",
+      "tags": ["saas", "founders", "europe"],
+      "language": "fr",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["forum-francophone", "discourse-startups", "ghost-founders"]
+    },
+    {
+      "id": "item-15",
+      "title": "Synthetic Media Disclosures: Ethical Best Practices for Creators",
+      "body": "Transparent labeling and watermarking for AI-assisted video productions.",
+      "tags": ["ai", "video", "creators", "policy"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["discourse-ai", "creator-forum", "mrss-video"]
+    },
+    {
+      "id": "item-16",
+      "title": "Cold Email Outreach for Early Stage Founder Customer Discovery",
+      "body": "Personalization frameworks that generate 25%+ reply rates.",
+      "tags": ["marketing", "founders", "sales"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["indiehackers", "discourse-startups", "ghost-marketing"]
+    },
+    {
+      "id": "item-17",
+      "title": "Building Real-Time Multi-User Collaboration with WebSockets",
+      "body": "CRDTs, operational transformation, and state synchronization in Python/Node.",
+      "tags": ["saas", "backend", "webdev"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["devto", "hashnode-tech", "discourse-tech"]
+    },
+    {
+      "id": "item-18",
+      "title": "Automated Newsletter Syndication with Kit API and Python",
+      "body": "Scheduling draft broadcasts and tracking open rates automatically.",
+      "tags": ["marketing", "creators", "automation"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["kit-newsletter", "creator-forum", "ghost-marketing"]
+    },
+    {
+      "id": "item-19",
+      "title": "Self-Hosting Lemmy and Matrix on a Single VPS",
+      "body": "Docker compose setup for federated community discussion forums.",
+      "tags": ["lemmy", "federation", "open-source", "devops"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["lemmy-selfhosted", "devto", "discourse-tech"]
+    },
+    {
+      "id": "item-20",
+      "title": "Unit Economics for Seed Stage SaaS: CAC, LTV and Payback Period",
+      "body": "Financial modeling templates for venture-backed and bootstrapped software.",
+      "tags": ["saas", "founders", "finance", "business"],
+      "language": "en",
+      "is_promotional": false,
+      "ai_generated": false,
+      "relevant_destinations": ["indiehackers", "ghost-founders", "discourse-startups"]
+    }
+  ]
+}

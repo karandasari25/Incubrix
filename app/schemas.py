@@ -40,3 +40,13 @@ class CatalogueImportRequest(BaseModel):
 
 class AIRulesCaptureRequest(BaseModel):
     text: str
+
+
+class RecommendationRequest(BaseModel):
+    title: str | None = None
+    body: str | None = None
+    canonical_link: str | None = None
+    tags: list[str] = Field(default_factory=list)
+    language: str | None = "en"
+    is_promotional: bool = False
+    ai_generated: bool = False
