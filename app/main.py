@@ -12,6 +12,7 @@ from app.logging import IncuBrixJsonFormatter, SecretRedactionFilter
 from app.middleware import CorrelationAndIdempotencyMiddleware
 from app.routes import router
 from app.connectors.router import router as connector_router
+from fastapi.middleware.cors import CORSMiddleware
 
 
 handler = logging.StreamHandler()
@@ -31,6 +32,19 @@ async def lifespan(application: FastAPI):
 
 
 app = FastAPI(title="IncuBrix", version="0.1.0", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+    ],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.add_middleware(CorrelationAndIdempotencyMiddleware)
 app.add_middleware(CorrelationAndIdempotencyMiddleware)
 app.include_router(router)
 app.include_router(connector_router)

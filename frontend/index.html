@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,13 @@
       --danger: #ef4444;
       --radius: 8px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
@@ -26,6 +33,7 @@
       line-height: 1.5;
       padding: 24px;
     }
+
     header {
       display: flex;
       justify-content: space-between;
@@ -34,7 +42,12 @@
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
     }
-    h1 { font-size: 24px; font-weight: 700; }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
     .badge {
       display: inline-block;
       padding: 4px 10px;
@@ -44,18 +57,26 @@
       background: #0284c7;
       color: #fff;
     }
+
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
     }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 20px;
     }
+
     .card h2 {
       font-size: 18px;
       margin-bottom: 16px;
@@ -64,9 +85,22 @@
       align-items: center;
       justify-content: space-between;
     }
-    .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
-    input[type="text"], textarea, select {
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid var(--border);
@@ -75,16 +109,25 @@
       border-radius: var(--radius);
       font-size: 14px;
     }
-    input:focus, textarea:focus, select:focus {
+
+    input:focus,
+    textarea:focus,
+    select:focus {
       outline: none;
       border-color: var(--primary);
     }
-    textarea { resize: vertical; min-height: 90px; }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
     .checkbox-group {
       display: flex;
       gap: 16px;
       margin-top: 8px;
     }
+
     .checkbox-group label {
       display: flex;
       align-items: center;
@@ -92,6 +135,7 @@
       color: var(--text);
       cursor: pointer;
     }
+
     button {
       background: var(--primary);
       color: white;
@@ -103,11 +147,19 @@
       font-size: 14px;
       transition: background 0.2s;
     }
-    button:hover { background: var(--primary-hover); }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+
     .btn-secondary {
       background: #475569;
     }
-    .btn-secondary:hover { background: #334155; }
+
+    .btn-secondary:hover {
+      background: #334155;
+    }
+
     .status-pill {
       display: inline-block;
       padding: 2px 8px;
@@ -116,21 +168,43 @@
       font-weight: 600;
       text-transform: uppercase;
     }
-    .status-succeeded { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-    .status-scheduled, .status-rescheduled { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-    .status-blocked, .status-failed { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+    .status-succeeded {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+
+    .status-scheduled,
+    .status-rescheduled {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+    }
+
+    .status-blocked,
+    .status-failed {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+
     .results-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 12px;
       font-size: 13px;
     }
-    .results-table th, .results-table td {
+
+    .results-table th,
+    .results-table td {
       padding: 8px 10px;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
-    .results-table th { color: var(--text-muted); font-weight: 600; }
+
+    .results-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
     .pre-box {
       background: #090d16;
       border: 1px solid var(--border);
@@ -144,6 +218,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <div>
@@ -152,7 +227,8 @@
     </div>
     <div>
       <span class="badge" id="backend-status">Connected</span>
-      <a href="/docs" target="_blank" style="color: var(--primary); font-size: 13px; margin-left: 12px; text-decoration: none;">API Docs &rarr;</a>
+      <a href="/docs" target="_blank"
+        style="color: var(--primary); font-size: 13px; margin-left: 12px; text-decoration: none;">API Docs &rarr;</a>
     </div>
   </header>
 
@@ -166,7 +242,8 @@
           <select id="pub-destinations" multiple size="4">
             <option value="" disabled>Loading destinations...</option>
           </select>
-          <small style="color: var(--text-muted); font-size: 11px;">Hold Ctrl/Cmd to select multiple destinations</small>
+          <small style="color: var(--text-muted); font-size: 11px;">Hold Ctrl/Cmd to select multiple
+            destinations</small>
         </div>
 
         <div class="form-group">
@@ -228,11 +305,13 @@
             <span id="display-progress">0%</span>
           </div>
           <div style="background: #334155; border-radius: 4px; height: 8px; overflow: hidden;">
-            <div id="progress-bar" style="background: var(--primary); width: 0%; height: 100%; transition: width 0.3s;"></div>
+            <div id="progress-bar" style="background: var(--primary); width: 0%; height: 100%; transition: width 0.3s;">
+            </div>
           </div>
         </div>
 
-        <h3 style="font-size: 14px; margin-top: 16px; margin-bottom: 8px; color: var(--text-muted);">Destination Outcomes</h3>
+        <h3 style="font-size: 14px; margin-top: 16px; margin-bottom: 8px; color: var(--text-muted);">Destination
+          Outcomes</h3>
         <table class="results-table">
           <thead>
             <tr>
@@ -258,10 +337,11 @@
       document.getElementById('pub-idempotency').value = 'console-' + Math.random().toString(36).substring(2, 10) + '-' + Date.now();
     }
     generateKey();
+    const API_BASE = "";
 
     async function loadDestinations() {
       try {
-        const res = await fetch('/api/v1/destinations');
+        const res = await fetch(`${API_BASE}/api/v1/destinations`);
         const data = await res.json();
         const select = document.getElementById('pub-destinations');
         select.innerHTML = '';
@@ -303,7 +383,7 @@
         btn.disabled = true;
         btn.textContent = 'Publishing...';
 
-        const res = await fetch('/api/v1/publish', {
+        const res = await fetch(`${API_BASE}/api/v1/publish`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -335,7 +415,7 @@
       document.getElementById('display-job-id').textContent = jobId;
 
       try {
-        const res = await fetch(`/api/v1/jobs/${jobId}`);
+        const res = await fetch(`${API_BASE}/api/v1/jobs/${jobId}`);
         const job = await res.json();
 
         const badge = document.getElementById('job-status-badge');
@@ -374,4 +454,5 @@
     }
   </script>
 </body>
+
 </html>
