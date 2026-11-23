@@ -1,0 +1,380 @@
+[
+  {
+    "id": 1,
+    "description": "Allowed: clean content, weekly cap, no promo, links allowed, no disclosure",
+    "content": {"title": "Post 1", "body": "Good content", "canonical_link": "https://example.com/p1", "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 2,
+    "description": "Blocked: second post inside weekly cap → FREQUENCY_CAP",
+    "content": {"title": "Post 2", "body": "Second post this week", "canonical_link": "https://example.com/p2", "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [{"posted_at": "2026-11-21T10:00:00+00:00"}],
+    "expected_action": "rescheduled",
+    "expected_reasons": ["FREQUENCY_CAP"]
+  },
+  {
+    "id": 3,
+    "description": "Blocked: promotional post to no-promo destination → SELF_PROMOTION_NOT_ALLOWED",
+    "content": {"title": "Buy now!", "body": "Promo content", "canonical_link": "https://example.com/product", "is_promotional": true, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": false, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["SELF_PROMOTION_NOT_ALLOWED"]
+  },
+  {
+    "id": 4,
+    "description": "Blocked: link forbidden but canonical_link present → LINK_POLICY_VIOLATION",
+    "content": {"title": "Post", "body": "Good post", "canonical_link": "https://example.com/post", "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "forbidden", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["LINK_POLICY_VIOLATION"]
+  },
+  {
+    "id": 5,
+    "description": "Blocked: destination_only link policy with external link → LINK_POLICY_VIOLATION",
+    "content": {"title": "Post", "body": "Post body", "canonical_link": "https://external.example.com/post", "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "destination_only", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["LINK_POLICY_VIOLATION"]
+  },
+  {
+    "id": 6,
+    "description": "Allowed: destination_only with matching domain link",
+    "content": {"title": "Post", "body": "Post body", "canonical_link": "https://forum.example.com/article", "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "destination_only", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 7,
+    "description": "Blocked: AI-generated without disclosure marker → AI_DISCLOSURE_REQUIRED",
+    "content": {"title": "AI Post", "body": "This was written by an AI assistant.", "canonical_link": "https://example.com/ai", "is_promotional": false, "ai_generated": true},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": true},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AI_DISCLOSURE_REQUIRED"]
+  },
+  {
+    "id": 8,
+    "description": "Allowed: AI-generated with disclosure marker in body",
+    "content": {"title": "AI Post", "body": "This post is ai-generated and discloses it.", "canonical_link": "https://example.com/ai", "is_promotional": false, "ai_generated": true},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": true},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 9,
+    "description": "Blocked: missing all required destination fields → AMBIGUOUS_RULE",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"name": "Incomplete"},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE"]
+  },
+  {
+    "id": 10,
+    "description": "Blocked: frequency_cap missing → AMBIGUOUS_RULE:MISSING_FREQUENCY_CAP",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": null, "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE"]
+  },
+  {
+    "id": 11,
+    "description": "Blocked: unknown frequency cap value → AMBIGUOUS_RULE:UNKNOWN_FREQUENCY_CAP",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "biweekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE:UNKNOWN_FREQUENCY_CAP"]
+  },
+  {
+    "id": 12,
+    "description": "Blocked: link_policy unknown value → AMBIGUOUS_RULE:UNKNOWN_LINK_POLICY",
+    "content": {"title": "Post", "body": "Body", "canonical_link": "https://example.com/p", "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "partial", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE:UNKNOWN_LINK_POLICY"]
+  },
+  {
+    "id": 13,
+    "description": "Blocked: self_promo_allowed not boolean → AMBIGUOUS_RULE:INVALID_SELF_PROMO_POLICY",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": "yes", "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE:INVALID_SELF_PROMO_POLICY"]
+  },
+  {
+    "id": 14,
+    "description": "Blocked: disclosure_required not boolean → AMBIGUOUS_RULE:INVALID_DISCLOSURE_POLICY",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": "maybe"},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE:INVALID_DISCLOSURE_POLICY"]
+  },
+  {
+    "id": 15,
+    "description": "Allowed: second post outside weekly cap (old post 8+ days ago)",
+    "content": {"title": "Post", "body": "Good content", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [{"posted_at": "2026-11-01T10:00:00+00:00"}],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 16,
+    "description": "Allowed: AI-generated but disclosure not required → allowed",
+    "content": {"title": "AI Post", "body": "Machine-written post.", "canonical_link": null, "is_promotional": false, "ai_generated": true},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 17,
+    "description": "Allowed: promotional to destination that allows promos",
+    "content": {"title": "Buy now!", "body": "Promo", "canonical_link": "https://product.example.com", "is_promotional": true, "ai_generated": false},
+    "destination": {"url": "https://promo.forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 18,
+    "description": "Allowed: no link in content with forbidden link policy",
+    "content": {"title": "Post", "body": "No link here", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "forbidden", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 19,
+    "description": "Blocked: hourly cap with post from 30 minutes ago → FREQUENCY_CAP",
+    "content": {"title": "Quick post", "body": "Another one", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://chat.example.com", "frequency_cap": "hourly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [{"posted_at": "$NOW-0.5h"}],
+    "expected_action": "rescheduled",
+    "expected_reasons": ["FREQUENCY_CAP"]
+  },
+  {
+    "id": 20,
+    "description": "Blocked: monthly cap with post from 2 weeks ago → FREQUENCY_CAP",
+    "content": {"title": "Monthly post", "body": "Second this month", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://newsletter.example.com", "frequency_cap": "monthly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [{"posted_at": "$NOW-336h"}],
+    "expected_action": "rescheduled",
+    "expected_reasons": ["FREQUENCY_CAP"]
+  },
+  {
+    "id": 21,
+    "description": "Blocked: daily cap with post from 2 hours ago → FREQUENCY_CAP",
+    "content": {"title": "Daily post", "body": "Second today", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://news.example.com", "frequency_cap": "daily", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [{"posted_at": "$NOW-2h"}],
+    "expected_action": "rescheduled",
+    "expected_reasons": ["FREQUENCY_CAP"]
+  },
+  {
+    "id": 22,
+    "description": "Blocked: promotional AND link violation → both reasons",
+    "content": {"title": "Buy Now!", "body": "Get it at external.com", "canonical_link": "https://buy.external.com/", "is_promotional": true, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": false, "link_policy": "forbidden", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["LINK_POLICY_VIOLATION", "SELF_PROMOTION_NOT_ALLOWED"]
+  },
+  {
+    "id": 23,
+    "description": "Blocked: AI-generated promo with no disclosure → both reasons",
+    "content": {"title": "AI Promo", "body": "This AI promo post.", "canonical_link": null, "is_promotional": true, "ai_generated": true},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": false, "link_policy": "allowed", "disclosure_required": true},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["SELF_PROMOTION_NOT_ALLOWED", "AI_DISCLOSURE_REQUIRED"]
+  },
+  {
+    "id": 24,
+    "description": "Allowed: non-English body is not rejected by English assumption",
+    "content": {"title": "Une communauté utile", "body": "Un contenu utile en français.", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://fr.forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false, "language": "fr"},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 25,
+    "description": "Allowed: Japanese content is not rejected",
+    "content": {"title": "日本語のポスト", "body": "これは有用なコンテンツです。", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://ja.forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false, "language": "ja"},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 26,
+    "description": "Blocked: missing frequency_cap field entirely",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE"]
+  },
+  {
+    "id": 27,
+    "description": "Blocked: missing link_policy field entirely",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE"]
+  },
+  {
+    "id": 28,
+    "description": "Blocked: missing disclosure_required field entirely",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed"},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE"]
+  },
+  {
+    "id": 29,
+    "description": "Blocked: missing self_promo_allowed field entirely",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE"]
+  },
+  {
+    "id": 30,
+    "description": "Allowed: post history with invalid timestamp is noted but does not block",
+    "content": {"title": "Post", "body": "Body", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [{"posted_at": "not-a-date"}],
+    "expected_action": "blocked",
+    "expected_reasons": ["AMBIGUOUS_RULE:INVALID_POST_HISTORY"]
+  },
+  {
+    "id": 31,
+    "description": "Allowed: empty post_history with daily cap",
+    "content": {"title": "First post today", "body": "No history", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://news.example.com", "frequency_cap": "daily", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 32,
+    "description": "Allowed: empty post_history with monthly cap",
+    "content": {"title": "First post this month", "body": "No history", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://newsletter.example.com", "frequency_cap": "monthly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 33,
+    "description": "Allowed: empty post_history with hourly cap",
+    "content": {"title": "First post this hour", "body": "No history", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://chat.example.com", "frequency_cap": "hourly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 34,
+    "description": "Blocked: destination_only with empty canonical_link but destination has url",
+    "content": {"title": "Post", "body": "No link", "canonical_link": "", "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "destination_only", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 35,
+    "description": "Allowed: canonical_link null with forbidden link policy",
+    "content": {"title": "Post", "body": "No link in this post", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "forbidden", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 36,
+    "description": "Allowed: not promotional, self_promo_allowed false → no block",
+    "content": {"title": "Educational post", "body": "Useful knowledge", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": false, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 37,
+    "description": "Allowed: not AI-generated, disclosure_required true → no block",
+    "content": {"title": "Human post", "body": "Written by a human.", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": true},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 38,
+    "description": "Blocked: frequency cap + promotional violation simultaneously",
+    "content": {"title": "Promo", "body": "Buy now!", "canonical_link": null, "is_promotional": true, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": false, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [{"posted_at": "2026-11-21T10:00:00+00:00"}],
+    "expected_action": "blocked",
+    "expected_reasons": ["FREQUENCY_CAP", "SELF_PROMOTION_NOT_ALLOWED"]
+  },
+  {
+    "id": 39,
+    "description": "Blocked: AI-generated body with uppercase AI-GENERATED marker does not satisfy disclosure (case-insensitive check passes)",
+    "content": {"title": "AI Post", "body": "This post is AI-GENERATED.", "canonical_link": null, "is_promotional": false, "ai_generated": true},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": true},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 40,
+    "description": "Blocked: three violations: promo, link, AI disclosure",
+    "content": {"title": "Triple violation", "body": "No disclosure here.", "canonical_link": "https://external.other.com/p", "is_promotional": true, "ai_generated": true},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": false, "link_policy": "forbidden", "disclosure_required": true},
+    "post_history": [],
+    "expected_action": "blocked",
+    "expected_reasons": ["LINK_POLICY_VIOLATION", "SELF_PROMOTION_NOT_ALLOWED", "AI_DISCLOSURE_REQUIRED"]
+  },
+  {
+    "id": 41,
+    "description": "Allowed: canonical_link matches destination_only URL exactly",
+    "content": {"title": "Post", "body": "On-site link", "canonical_link": "https://forum.example.com", "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "destination_only", "disclosure_required": false},
+    "post_history": [],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  },
+  {
+    "id": 42,
+    "description": "Allowed: post history timezone naive treated as UTC",
+    "content": {"title": "Post", "body": "Good content", "canonical_link": null, "is_promotional": false, "ai_generated": false},
+    "destination": {"url": "https://forum.example.com", "frequency_cap": "weekly", "self_promo_allowed": true, "link_policy": "allowed", "disclosure_required": false},
+    "post_history": [{"posted_at": "2026-11-01T10:00:00"}],
+    "expected_action": "allowed",
+    "expected_reasons": []
+  }
+]

@@ -2,6 +2,10 @@ from datetime import datetime, timedelta, timezone
 from typing import Any
 
 
+def _cap_window_hours(frequency: str) -> int:
+    return {"hourly": 1, "daily": 24, "weekly": 168, "monthly": 720}.get(frequency, 0)
+
+
 def evaluate_post_rules(
     content: dict[str, Any],
     destination: dict[str, Any],
@@ -14,17 +18,19 @@ def evaluate_post_rules(
                or destination[field] is None]
     if missing:
         return {
+            "action": "blocked",
             "decision": "blocked",
             "reasons": ["AMBIGUOUS_RULE"] + [f"MISSING:{field}" for field in missing],
         }
 
     reasons = []
+    scheduled_for: str | None = None
     frequency = destination["frequency_cap"]
     if not isinstance(frequency, str) or not frequency:
         reasons.append("AMBIGUOUS_RULE:MISSING_FREQUENCY_CAP")
     elif frequency in {"hourly", "daily", "weekly", "monthly"}:
-        windows = {"hourly": 1, "daily": 24, "weekly": 168, "monthly": 720}
-        cutoff = datetime.now(timezone.utc) - timedelta(hours=windows[frequency])
+        hours = _cap_window_hours(frequency)
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
         for item in post_history:
             posted_at = item.get("posted_at")
             try:
@@ -36,6 +42,8 @@ def evaluate_post_rules(
                 continue
             if timestamp >= cutoff:
                 reasons.append("FREQUENCY_CAP")
+                # Schedule for the end of the cap window (when the cap expires)
+                scheduled_for = (timestamp + timedelta(hours=hours)).isoformat()
                 break
     else:
         reasons.append("AMBIGUOUS_RULE:UNKNOWN_FREQUENCY_CAP")
@@ -63,6 +71,16 @@ def evaluate_post_rules(
         if not disclosure_marker:
             reasons.append("AI_DISCLOSURE_REQUIRED")
 
-    if reasons:
-        return {"decision": "blocked", "reasons": list(dict.fromkeys(reasons))}
-    return {"decision": "allowed", "reasons": []}
+    unique_reasons = list(dict.fromkeys(reasons))
+    if not unique_reasons:
+        return {"action": "allowed", "decision": "allowed", "reasons": []}
+
+    # Frequency cap is reschedulable; all other blocks are hard blocks
+    if unique_reasons == ["FREQUENCY_CAP"] and scheduled_for:
+        return {
+            "action": "rescheduled",
+            "decision": "blocked",
+            "reasons": unique_reasons,
+            "scheduled_for": scheduled_for,
+        }
+    return {"action": "blocked", "decision": "blocked", "reasons": unique_reasons}

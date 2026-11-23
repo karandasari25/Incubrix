@@ -67,7 +67,9 @@ def test_ai_generated_destination_requires_disclosure_and_reasons_it():
 
 def test_allowed_post_carries_no_block_reason():
     result = evaluate_post_rules(content(), destination(), [])
-    assert result == {"decision": "allowed", "reasons": []}
+    assert result["decision"] == "allowed"
+    assert result["reasons"] == []
+    assert result["action"] == "allowed"
 
 
 def test_link_policy_blocks_external_link():
@@ -189,3 +191,70 @@ def test_phase4_hard_cases_have_stored_results():
     assert "timeout_retry_same_key" in names
     assert "platform_field_rename" in names
     assert "csv_duplicates_bad_urls_mixed_languages" in names
+
+
+def _resolve_timestamps(post_history: list) -> list:
+    """Replace $NOW-Xh magic tokens with actual ISO timestamps relative to now."""
+    import re
+    now = datetime.now(timezone.utc)
+    resolved = []
+    for item in post_history:
+        new_item = dict(item)
+        raw = new_item.get("posted_at", "")
+        m = re.match(r"^\$NOW-(\d+(?:\.\d+)?)h$", str(raw))
+        if m:
+            hours = float(m.group(1))
+            new_item["posted_at"] = (now - timedelta(hours=hours)).isoformat()
+        resolved.append(new_item)
+    return resolved
+
+
+def test_rules_fixture_has_forty_plus_cases_and_zero_misses():
+    """Run all rules_cases.json cases through evaluate_post_rules; misses must be 0."""
+    path = Path(__file__).parent / "fixtures" / "rules_cases.json"
+    cases = json.loads(path.read_text(encoding="utf-8"))
+    assert len(cases) >= 40, f"Expected >= 40 cases, got {len(cases)}"
+    misses = []
+    for case in cases:
+        result = evaluate_post_rules(
+            case["content"],
+            case["destination"],
+            _resolve_timestamps(case["post_history"]),
+        )
+        actual_action = result.get("action", result.get("decision"))
+        expected_action = case["expected_action"]
+        # "rescheduled" is a subtype of "blocked" (decision=blocked, action=rescheduled)
+        ok_action = (
+            actual_action == expected_action
+            or (expected_action == "rescheduled" and result.get("action") == "rescheduled")
+        )
+        for expected_reason in case["expected_reasons"]:
+            if expected_reason not in result["reasons"]:
+                misses.append({
+                    "id": case["id"],
+                    "description": case["description"],
+                    "expected_reason": expected_reason,
+                    "got_reasons": result["reasons"],
+                })
+        if not ok_action:
+            misses.append({
+                "id": case["id"],
+                "description": case["description"],
+                "expected_action": expected_action,
+                "got_action": actual_action,
+            })
+    assert misses == [], f"{len(misses)} violations missed:\n" + "\n".join(str(m) for m in misses)
+
+
+def test_frequency_cap_returns_rescheduled_action_with_scheduled_for():
+    now = datetime.now(timezone.utc)
+    history = [{"posted_at": (now - timedelta(days=2)).isoformat()}]
+    result = evaluate_post_rules(
+        content(),
+        destination(),
+        history,
+    )
+    assert result["action"] == "rescheduled"
+    assert result["decision"] == "blocked"
+    assert "FREQUENCY_CAP" in result["reasons"]
+    assert "scheduled_for" in result
