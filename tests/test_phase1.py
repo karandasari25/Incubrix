@@ -30,6 +30,28 @@ def override_db():
 
 Base.metadata.create_all(bind=engine)
 app.dependency_overrides[get_db] = override_db
+
+from app.models import Destination
+
+with TestingSessionLocal() as session:
+    for name in ["destination-1", "destination-A", "destination-B", "discourse"]:
+        session.add(
+            Destination(
+                id=name,
+                name=name,
+                url=f"https://example.com/{name}",
+                platform_key="discourse",
+                surface="topic",
+                connector_key="discourse",
+                frequency_cap="weekly",
+                self_promo_allowed=True,
+                link_policy="allowed",
+                disclosure_required=False,
+                level="L3",
+            )
+        )
+    session.commit()
+
 client = TestClient(app)
 
 

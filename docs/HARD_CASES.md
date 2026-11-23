@@ -1,6 +1,6 @@
 # IncuBrix Hard Cases Verification Report
 
-All 13 hard cases are tested via `tests/test_hard_cases.py` and `tests/fixtures/phase4_hard_cases.json`.
+All 16 hard cases are tested via `tests/test_hard_cases.py` and `tests/fixtures/phase4_hard_cases.json`.
 
 | Case ID | Case Description | Test / Input File | Expected System Action | Verified Actual Outcome |
 |---|---|---|---|---|
@@ -17,3 +17,7 @@ All 13 hard cases are tested via `tests/test_hard_cases.py` and `tests/fixtures/
 | `HC-11` | Partner webhook revokes permission (403) | `test_hard_case_11_partner_revokes_permission` | Map to `CONNECTION_AUTH_EXPIRED`, alert created, no retry | **Verified**: 403 mapped to `CONNECTION_AUTH_EXPIRED` in manifest |
 | `HC-12` | Non-English community content (Unicode/accents) | `test_hard_case_12_non_english_community_preserved` | Preserved intact without rejection by English assumption | **Verified**: `decision=allowed`, accents preserved |
 | `HC-13` | Destination requires AI disclosure tag | `test_hard_case_13_destination_requires_ai_disclosure` | Blocked if disclosure missing; reason `AI_DISCLOSURE_REQUIRED` | **Verified**: Blocked with `AI_DISCLOSURE_REQUIRED` |
+| `HC-14` | Publish to destination that does not exist | `test_publish_to_non_existent_destination_rejected_with_404` | Pre-validation returns HTTP 404 with code `DESTINATION_NOT_FOUND` | **Verified**: Immediate 404 rejection; no mock fallback |
+| `HC-15` | Pipeline second post to weekly-cap destination | `test_pipeline_second_post_to_weekly_cap_destination_rescheduled` | Pipeline loads real post history; status `scheduled`, code `DEST_RULE_FREQUENCY_CAP` | **Verified**: Rescheduled with `scheduled_for` timestamp |
+| `HC-16` | Promotional post to destination with unknown rules | `test_pipeline_promotional_post_to_unknown_rules_destination_blocked_fail_closed` | Pure fail-closed; status `blocked`, code `AMBIGUOUS_RULE` | **Verified**: Blocked with `AMBIGUOUS_RULE`; no permissive default |
+

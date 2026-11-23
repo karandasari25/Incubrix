@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
+from fastapi.responses import HTMLResponse
+from pathlib import Path
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -51,6 +53,14 @@ def ready(db: Session = Depends(get_db)) -> dict:
     return {"status": "ready", "simulation_mode": settings.simulation_mode}
 
 
+@router.get("/console", response_class=HTMLResponse, include_in_schema=False)
+def console() -> HTMLResponse:
+    index_path = Path(__file__).resolve().parents[1] / "frontend" / "index.html"
+    if index_path.exists():
+        return HTMLResponse(content=index_path.read_text(encoding="utf-8"))
+    return HTMLResponse(content="<h1>IncuBrix Console</h1><p>Frontend template not found.</p>", status_code=404)
+
+
 PUBLISH_REQUEST_FIELDS = {
     "destinations",
     "title",
@@ -76,6 +86,20 @@ def publish(
     idempotency_key: str = Header(..., alias="Idempotency-Key"),
     db: Session = Depends(get_db),
 ) -> dict:
+    # 1. Validate that all requested destinations exist
+    for dest_ref in payload.destinations:
+        dest_record = db.query(Destination).filter(
+            (Destination.id == dest_ref) | (Destination.name == dest_ref)
+        ).first()
+        if not dest_record:
+            raise APIError(
+                code="DESTINATION_NOT_FOUND",
+                message=f"Destination '{dest_ref}' not found.",
+                status_code=404,
+                retryable=False,
+                details={"destination": dest_ref},
+            )
+
     current_payload = payload.model_dump()
     existing = db.query(Job).filter(Job.idempotency_key == idempotency_key).first()
     if existing:

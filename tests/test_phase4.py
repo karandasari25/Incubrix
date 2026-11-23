@@ -261,6 +261,7 @@ def test_frequency_cap_returns_rescheduled_action_with_scheduled_for():
 
 
 def test_publish_pipeline_executes_and_updates_job_results():
+    from uuid import uuid4
     from fastapi.testclient import TestClient
     from app.main import app
 
@@ -268,9 +269,9 @@ def test_publish_pipeline_executes_and_updates_job_results():
     # 1. Create a destination
     dest_resp = client.post(
         "/api/v1/destinations",
-        headers={"Idempotency-Key": "dest-create-forum-1"},
+        headers={"Idempotency-Key": f"dest-forum-{uuid4()}"},
         json={
-            "name": "Pipeline Forum",
+            "name": f"Pipeline Forum {uuid4().hex[:6]}",
             "url": "http://mock-platforms:8080/discourse",
             "platform_key": "discourse",
             "surface": "topic",
@@ -288,7 +289,7 @@ def test_publish_pipeline_executes_and_updates_job_results():
     # 2. Publish to it
     pub_resp = client.post(
         "/api/v1/publish",
-        headers={"Idempotency-Key": "pipeline-exec-test-key"},
+        headers={"Idempotency-Key": f"pipeline-exec-{uuid4()}"},
         json={
             "destinations": [dest_id],
             "title": "Pipeline Integration Post",
@@ -312,6 +313,7 @@ def test_publish_pipeline_executes_and_updates_job_results():
 
 
 def test_publish_pipeline_blocks_promotional_content():
+    from uuid import uuid4
     from fastapi.testclient import TestClient
     from app.main import app
 
@@ -319,9 +321,9 @@ def test_publish_pipeline_blocks_promotional_content():
     # Create non-promo destination
     dest_resp = client.post(
         "/api/v1/destinations",
-        headers={"Idempotency-Key": "dest-create-nopromo-1"},
+        headers={"Idempotency-Key": f"dest-nopromo-{uuid4()}"},
         json={
-            "name": "No Promo Community",
+            "name": f"No Promo Community {uuid4().hex[:6]}",
             "url": "http://mock-platforms:8080/lemmy",
             "platform_key": "lemmy",
             "surface": "post",
@@ -339,7 +341,7 @@ def test_publish_pipeline_blocks_promotional_content():
     # Publish promotional content
     pub_resp = client.post(
         "/api/v1/publish",
-        headers={"Idempotency-Key": "pipeline-blocked-promo-key"},
+        headers={"Idempotency-Key": f"pipeline-promo-{uuid4()}"},
         json={
             "destinations": [dest_id],
             "title": "Buy Our SaaS Product",

@@ -5,6 +5,7 @@ COPY pyproject.toml /app/pyproject.toml
 RUN pip install --no-cache-dir .
 COPY app /app/app
 COPY connectors /app/connectors
+COPY frontend /app/frontend
 COPY alembic.ini /app/alembic.ini
 COPY alembic /app/alembic
 

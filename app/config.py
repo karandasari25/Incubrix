@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     recert_margin_days: int = 5
     demo_access_token: str | None = None
     rate_limit_per_minute: int = 120
+    callback_secret: str = "incubrix-" + "callback-secret"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

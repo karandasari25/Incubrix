@@ -23,4 +23,5 @@ Use the following status only with the linked evidence.
 | Advanced MRSS/Hashnode/Kit connectors | Yes (simulation) | Manifests and simulation implementations verified in contract and core suites |
 | Secret redaction | Yes | `tests/test_secrets.py` (3 tests: repo scanner, token redaction, captured log redaction) |
 | HMAC callback | Yes | `app/callback.py`, `tests/test_phase6.py` (64-char hex SHA-256 signature) |
-| Hard cases pack | Yes | `tests/test_hard_cases.py` (13 tests), `docs/HARD_CASES.md` |
+| Hard cases pack | Yes | `tests/test_hard_cases.py` (16 tests), `docs/HARD_CASES.md` |
+| Operator Web Console | Yes | `frontend/index.html`, `GET /console`, containerized in `Dockerfile` |

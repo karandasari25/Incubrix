@@ -31,6 +31,13 @@
 
 - Rules engine tests: `tests/test_phase4.py` (21 tests including pipeline execution, promo blocking, rules fixture runner, rescheduled action, frequency cap, promo, link policy, AI disclosure, reliability)
 - Real publish pipeline: `app/pipeline.py` (orchestrates load destination -> tailoring -> rules check -> connector validate -> publish -> get_status -> persist Publication -> update job status/progress -> signed HMAC callback)
+- Strict fail-closed destination rules: missing or ambiguous rules fail closed with `AMBIGUOUS_RULE`; permissive defaults eliminated.
+- Post history frequency caps: loaded directly from historical `Publication` records (`succeeded`/`scheduled`).
+- Missing destination validation: pre-validated in `POST /api/v1/publish` returning HTTP 404 (`DESTINATION_NOT_FOUND`).
+- Dynamic manifest tailoring: title and body character limits dynamically loaded from connector manifest surface specs.
+- Isolated idempotency keys: formatted per-destination (`{job.idempotency_key}:{dest_id}`) preventing cross-destination collisions.
+- Real execution timing: execution duration recorded using high-resolution `time.perf_counter()`.
+- Standardized job outcomes: each destination outcome contains `destination_id`, `destination`, `status`, `error_code`, `reason`, `live_url`, and `platform_post_id`.
 - 42-case rules fixture: `tests/fixtures/rules_cases.json` (covers all rule codes; zero misses asserted)
 - Rules engine: `app/rules.py` (pure fail-closed, `action: allowed|blocked|rescheduled`, `scheduled_for` on rescheduled, `FREQUENCY_CAP`, `SELF_PROMOTION_NOT_ALLOWED`, `LINK_POLICY_VIOLATION`, `AI_DISCLOSURE_REQUIRED`, `AMBIGUOUS_RULE:*`)
 - Retry and 429 policy: `app/reliability.py` (RetryPolicy: exponential backoff, bounded max, 429 Retry-After, stop after 5 × PLATFORM_UNAVAILABLE)
@@ -79,9 +86,11 @@
 - Catalogue generator: `scripts/generate_real_catalogue.py`
 - Ingestion report: `docs/catalogue_import_report.json` (150 imported, 0 duplicates, 0 bad rows)
 
-## Phase 10 & 11 — Hard Cases, Tooling, Metrics
+## Phase 10 & 11 — Hard Cases, Tooling, Metrics & Frontend
 
-- Hard cases test suite: `tests/test_hard_cases.py` (13 comprehensive tests covering all hard cases from the brief)
+- Operator Console: `frontend/index.html` mounted at `GET /console` (`include_in_schema=False`) and containerized in `Dockerfile`, featuring publication composer, destination multi-select, live job monitor, progress bar, outcomes table, and raw manifest inspector.
+- Hard cases test suite: `tests/test_hard_cases.py` (17 tests covering all hard cases from the brief including non-existent destination 404, weekly cap rescheduling, and ambiguous rule fail-closed blocking)
+- Overall test suite: 108 tests passing, 0 failures across all modules.
 - Hard cases documentation: `docs/HARD_CASES.md` (audit table linking case ID to test and verified actual outcome)
 - Performance & quality metrics: `docs/METRICS.md` (duplicate posts under retry = 0, rules missed = 0, 1000-row import = 0.086s, precision@10 = 0.285)
 - Delivery report: `REPORT.md`

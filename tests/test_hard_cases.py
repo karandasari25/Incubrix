@@ -9,6 +9,8 @@ from app.catalogue import import_catalogue_csv
 from app.connectors.registry import get_registry
 from app.errors import APIError
 from app.main import app
+from app.database import SessionLocal
+from app.models import Destination
 from app.reliability import RetryPolicy, reconcile_idempotent_publish
 from app.rules import evaluate_post_rules
 
@@ -16,7 +18,38 @@ from app.rules import evaluate_post_rules
 client = TestClient(app)
 
 
+def _ensure_discourse_dest():
+    from app.database import get_db
+    sessions = [SessionLocal()]
+    if get_db in app.dependency_overrides:
+        try:
+            gen = app.dependency_overrides[get_db]()
+            sessions.append(next(gen))
+        except Exception:
+            pass
+    for db in sessions:
+        try:
+            if not db.query(Destination).filter((Destination.id == "discourse") | (Destination.name == "discourse")).first():
+                db.add(Destination(
+                    id="discourse",
+                    name="discourse",
+                    url="http://mock-platforms:8080/discourse",
+                    platform_key="discourse",
+                    surface="topic",
+                    connector_key="discourse",
+                    frequency_cap="weekly",
+                    self_promo_allowed=True,
+                    link_policy="allowed",
+                    disclosure_required=False,
+                    level="L3",
+                ))
+                db.commit()
+        finally:
+            db.close()
+
+
 def test_hard_case_01_timeout_retry_same_key():
+    _ensure_discourse_dest()
     headers = {"Idempotency-Key": "hard-case-key-01-timeout"}
     first = client.post(
         "/api/v1/publish",
@@ -195,3 +228,115 @@ def test_hard_case_13_destination_requires_ai_disclosure():
     result = evaluate_post_rules(content, dest, [])
     assert result["decision"] == "blocked"
     assert "AI_DISCLOSURE_REQUIRED" in result["reasons"]
+
+
+def test_publish_to_non_existent_destination_rejected_with_404():
+    resp = client.post(
+        "/api/v1/publish",
+        headers={"Idempotency-Key": "test-404-nonexistent-dest-key"},
+        json={"destinations": ["totally-unknown-dest-xyz-999"]},
+    )
+    assert resp.status_code == 404
+    assert resp.json()["error"]["code"] == "DESTINATION_NOT_FOUND"
+
+
+def test_pipeline_second_post_to_weekly_cap_destination_rescheduled():
+    # Create destination with weekly frequency cap
+    dest_resp = client.post(
+        "/api/v1/destinations",
+        headers={"Idempotency-Key": "dest-weekly-cap-create-key"},
+        json={
+            "name": "Weekly Cap Community",
+            "url": "http://mock-platforms:8080/discourse",
+            "platform_key": "discourse",
+            "surface": "topic",
+            "connector_key": "discourse",
+            "frequency_cap": "weekly",
+            "self_promo_allowed": True,
+            "link_policy": "allowed",
+            "disclosure_required": False,
+            "level": "L3",
+        },
+    )
+    assert dest_resp.status_code == 201
+    dest_id = dest_resp.json()["id"]
+
+    # Post 1: Should succeed
+    pub1 = client.post(
+        "/api/v1/publish",
+        headers={"Idempotency-Key": "weekly-cap-post-1-key"},
+        json={
+            "destinations": [dest_id],
+            "title": "First Weekly Post",
+            "body": "First post inside the weekly window.",
+        },
+    )
+    assert pub1.status_code == 202
+    job1_id = pub1.json()["job_id"]
+    job1 = client.get(f"/api/v1/jobs/{job1_id}").json()
+    assert job1["results"][0]["status"] == "succeeded"
+
+    # Post 2: Inside weekly cap window -> Must be rescheduled with DEST_RULE_FREQUENCY_CAP
+    pub2 = client.post(
+        "/api/v1/publish",
+        headers={"Idempotency-Key": "weekly-cap-post-2-key"},
+        json={
+            "destinations": [dest_id],
+            "title": "Second Weekly Post",
+            "body": "Second post inside the weekly window should be rescheduled.",
+        },
+    )
+    assert pub2.status_code == 202
+    job2_id = pub2.json()["job_id"]
+    job2 = client.get(f"/api/v1/jobs/{job2_id}").json()
+    assert job2["results"][0]["status"] == "rescheduled"
+    assert job2["results"][0]["error_code"] == "DEST_RULE_FREQUENCY_CAP"
+    assert job2["results"][0]["scheduled_for"] is not None
+
+
+def test_pipeline_promotional_post_to_unknown_rules_destination_blocked_fail_closed():
+    # Create destination with None for self_promo_allowed (unknown rules)
+    dest_resp = client.post(
+        "/api/v1/destinations",
+        headers={"Idempotency-Key": "dest-unknown-rules-create-key"},
+        json={
+            "name": "Unknown Rules Forum",
+            "url": "http://mock-platforms:8080/discourse",
+            "platform_key": "discourse",
+            "surface": "topic",
+            "connector_key": "discourse",
+            "frequency_cap": "weekly",
+            "self_promo_allowed": None,
+            "link_policy": "allowed",
+            "disclosure_required": False,
+            "level": "L0",
+        },
+    )
+    assert dest_resp.status_code == 201
+    dest_id = dest_resp.json()["id"]
+
+    # Post promotional content: should fail closed (blocked with AMBIGUOUS_RULE)
+    pub = client.post(
+        "/api/v1/publish",
+        headers={"Idempotency-Key": "unknown-rules-promo-post-key"},
+        json={
+            "destinations": [dest_id],
+            "title": "Promo to Unknown Rules",
+            "body": "This promotional post should be blocked because destination rules are unknown.",
+            "is_promotional": True,
+        },
+    )
+    assert pub.status_code == 202
+    job_id = pub.json()["job_id"]
+    job = client.get(f"/api/v1/jobs/{job_id}").json()
+    assert job["results"][0]["status"] == "blocked"
+    assert "AMBIGUOUS_RULE" in job["results"][0]["error_code"]
+
+
+def test_console_endpoint_serves_html():
+    response = client.get("/console")
+    assert response.status_code == 200
+    assert "text/html" in response.headers.get("content-type", "")
+    assert "IncuBrix Operator Console" in response.text
+
+

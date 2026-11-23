@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IncuBrix — Operator Console</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 { font-size: 24px; font-weight: 700; }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 9999px;
+      background: #0284c7;
+      color: #fff;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 16px;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      background: #0f172a;
+      color: var(--text);
+      border-radius: var(--radius);
+      font-size: 14px;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    textarea { resize: vertical; min-height: 90px; }
+    .checkbox-group {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      cursor: pointer;
+    }
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    button:hover { background: var(--primary-hover); }
+    .btn-secondary {
+      background: #475569;
+    }
+    .btn-secondary:hover { background: #334155; }
+    .status-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .status-succeeded { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .status-scheduled, .status-rescheduled { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .status-blocked, .status-failed { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+    .results-table th, .results-table td {
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .results-table th { color: var(--text-muted); font-weight: 600; }
+    .pre-box {
+      background: #090d16;
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: var(--radius);
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 240px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>IncuBrix Operator Console</h1>
+      <p style="color: var(--text-muted); font-size: 13px;">Long-Tail Distribution Network Engine</p>
+    </div>
+    <div>
+      <span class="badge" id="backend-status">Connected</span>
+      <a href="/docs" target="_blank" style="color: var(--primary); font-size: 13px; margin-left: 12px; text-decoration: none;">API Docs &rarr;</a>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- Left Column: Publisher -->
+    <div class="card">
+      <h2>Publish Publication</h2>
+      <form id="publish-form">
+        <div class="form-group">
+          <label for="pub-destinations">Target Destination(s)</label>
+          <select id="pub-destinations" multiple size="4">
+            <option value="" disabled>Loading destinations...</option>
+          </select>
+          <small style="color: var(--text-muted); font-size: 11px;">Hold Ctrl/Cmd to select multiple destinations</small>
+        </div>
+
+        <div class="form-group">
+          <label for="pub-title">Title</label>
+          <input type="text" id="pub-title" placeholder="e.g. Scaling AI Inference with vLLM" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pub-body">Body Content</label>
+          <textarea id="pub-body" placeholder="Write publication body here..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="pub-canonical">Canonical Link (optional)</label>
+          <input type="text" id="pub-canonical" placeholder="https://example.com/blog/scaling-ai">
+        </div>
+
+        <div class="form-group">
+          <label for="pub-tags">Tags (comma-separated)</label>
+          <input type="text" id="pub-tags" placeholder="ai, saas, devops, video">
+        </div>
+
+        <div class="form-group">
+          <label for="pub-idempotency">Idempotency Key</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="pub-idempotency" required>
+            <button type="button" class="btn-secondary" onclick="generateKey()">New</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            <label><input type="checkbox" id="pub-promo"> Promotional Content</label>
+            <label><input type="checkbox" id="pub-ai"> AI Generated</label>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-publish" style="width: 100%; margin-top: 8px;">Dispatch Publish Pipeline</button>
+      </form>
+    </div>
+
+    <!-- Right Column: Job Monitor & Results -->
+    <div class="card">
+      <h2>
+        <span>Job Monitor</span>
+        <span id="job-status-badge" style="display:none;" class="status-pill"></span>
+      </h2>
+      <div id="job-empty-state" style="color: var(--text-muted); padding: 40px 0; text-align: center;">
+        No active job. Submit a publication to monitor pipeline execution.
+      </div>
+
+      <div id="job-active-state" style="display: none;">
+        <div style="margin-bottom: 12px; font-size: 13px;">
+          <strong>Job ID:</strong> <span id="display-job-id" style="font-family: monospace;"></span>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+            <span>Pipeline Progress</span>
+            <span id="display-progress">0%</span>
+          </div>
+          <div style="background: #334155; border-radius: 4px; height: 8px; overflow: hidden;">
+            <div id="progress-bar" style="background: var(--primary); width: 0%; height: 100%; transition: width 0.3s;"></div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 14px; margin-top: 16px; margin-bottom: 8px; color: var(--text-muted);">Destination Outcomes</h3>
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Destination</th>
+              <th>Status</th>
+              <th>Reason / Code</th>
+              <th>Live URL</th>
+            </tr>
+          </thead>
+          <tbody id="results-table-body"></tbody>
+        </table>
+
+        <div style="margin-top: 16px;">
+          <label>Raw Manifest & Warnings</label>
+          <div class="pre-box" id="display-raw-result"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function generateKey() {
+      document.getElementById('pub-idempotency').value = 'console-' + Math.random().toString(36).substring(2, 10) + '-' + Date.now();
+    }
+    generateKey();
+
+    async function loadDestinations() {
+      try {
+        const res = await fetch('/api/v1/destinations');
+        const data = await res.json();
+        const select = document.getElementById('pub-destinations');
+        select.innerHTML = '';
+        (data.destinations || []).forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d.id;
+          opt.textContent = `${d.name} (${d.connector_key} · ${d.level})`;
+          select.appendChild(opt);
+        });
+      } catch (err) {
+        console.error('Failed to load destinations:', err);
+      }
+    }
+    loadDestinations();
+
+    document.getElementById('publish-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const select = document.getElementById('pub-destinations');
+      const destinations = Array.from(select.selectedOptions).map(o => o.value);
+      if (destinations.length === 0) {
+        alert('Please select at least one destination.');
+        return;
+      }
+
+      const payload = {
+        destinations: destinations,
+        title: document.getElementById('pub-title').value,
+        body: document.getElementById('pub-body').value,
+        canonical_link: document.getElementById('pub-canonical').value || null,
+        tags: document.getElementById('pub-tags').value.split(',').map(s => s.trim()).filter(Boolean),
+        is_promotional: document.getElementById('pub-promo').checked,
+        ai_generated: document.getElementById('pub-ai').checked
+      };
+
+      const key = document.getElementById('pub-idempotency').value;
+
+      try {
+        const btn = document.getElementById('btn-publish');
+        btn.disabled = true;
+        btn.textContent = 'Publishing...';
+
+        const res = await fetch('/api/v1/publish', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Idempotency-Key': key
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        btn.disabled = false;
+        btn.textContent = 'Dispatch Publish Pipeline';
+
+        if (!res.ok) {
+          alert('Error: ' + (data.error?.message || data.detail || 'Request failed'));
+          return;
+        }
+
+        renderJob(data.job_id);
+      } catch (err) {
+        alert('Network or server error: ' + err.message);
+        document.getElementById('btn-publish').disabled = false;
+        document.getElementById('btn-publish').textContent = 'Dispatch Publish Pipeline';
+      }
+    });
+
+    async function renderJob(jobId) {
+      document.getElementById('job-empty-state').style.display = 'none';
+      document.getElementById('job-active-state').style.display = 'block';
+      document.getElementById('display-job-id').textContent = jobId;
+
+      try {
+        const res = await fetch(`/api/v1/jobs/${jobId}`);
+        const job = await res.json();
+
+        const badge = document.getElementById('job-status-badge');
+        badge.style.display = 'inline-block';
+        badge.textContent = job.status;
+        badge.className = 'status-pill status-' + job.status;
+
+        const progress = job.progress || 0;
+        document.getElementById('display-progress').textContent = progress + '%';
+        document.getElementById('progress-bar').style.width = progress + '%';
+
+        const tbody = document.getElementById('results-table-body');
+        tbody.innerHTML = '';
+        (job.results || []).forEach(r => {
+          const tr = document.createElement('tr');
+          const liveUrl = r.live_url ? `<a href="${r.live_url}" target="_blank" style="color:var(--primary); text-decoration:none;">Open Post &rarr;</a>` : '—';
+          const reason = r.error_code ? `<strong>[${r.error_code}]</strong> ${r.reason || ''}` : (r.reason || 'OK');
+          tr.innerHTML = `
+            <td><strong>${r.destination || r.destination_id}</strong></td>
+            <td><span class="status-pill status-${r.status}">${r.status}</span></td>
+            <td>${reason}</td>
+            <td>${liveUrl}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById('display-raw-result').textContent = JSON.stringify({
+          warnings: job.warnings || [],
+          result_links: job.result_links || []
+        }, null, 2);
+
+        generateKey();
+      } catch (err) {
+        console.error('Job poll failed:', err);
+      }
+    }
+  </script>
+</body>
+</html>
